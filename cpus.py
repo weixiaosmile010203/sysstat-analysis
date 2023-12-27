@@ -38,17 +38,16 @@ cpu_guest_list = {}
 cpu_gnice_list = {}
 cpu_idle_list = {}
 for cpu in cpus:
-    print([cpu['usr']])
-    cpu_usr_list[cpu] = cpu_usr_list.get(cpu['cpu'], []) + [cpu['usr']]
-    cpu_nice_list.append(cpu.get('nice'))
-    cpu_sys_list.append(cpu.get('sys'))
-    cpu_iowait_list.append(cpu.get('iowait'))
-    cpu_steal_list.append(cpu.get('steal'))
-    cpu_irq_list.append(cpu.get('irq'))
-    cpu_soft_list.append(cpu.get('soft'))
-    cpu_guest_list.append(cpu.get('guest'))
-    cpu_gnice_list.append(cpu.get('gnice'))
-    cpu_idle_list.append(cpu.get('idle'))
+    cpu_usr_list[cpu['cpu']] = cpu_usr_list.get(cpu['cpu'], []) + [cpu['usr']]
+    cpu_nice_list[cpu['cpu']] = cpu_nice_list.get(cpu['cpu'], []) + [cpu['nice']]
+    cpu_sys_list[cpu['cpu']] = cpu_sys_list.get(cpu['cpu'], []) + [cpu['sys']]
+    cpu_iowait_list[cpu['cpu']] = cpu_iowait_list.get(cpu['cpu'], []) + [cpu['iowait']]
+    cpu_steal_list[cpu['cpu']] = cpu_steal_list.get(cpu['cpu'], []) + [cpu['steal']]
+    cpu_irq_list[cpu['cpu']] = cpu_irq_list.get(cpu['cpu'], []) + [cpu['irq']]
+    cpu_soft_list[cpu['cpu']] = cpu_soft_list.get(cpu['cpu'], []) + [cpu['soft']]
+    cpu_guest_list[cpu['cpu']] = cpu_guest_list.get(cpu['cpu'], []) + [cpu['guest']]
+    cpu_gnice_list[cpu['cpu']] = cpu_gnice_list.get(cpu['cpu'], []) + [cpu['gnice']]
+    cpu_idle_list[cpu['cpu']] = cpu_idle_list.get(cpu['cpu'], []) + [cpu['idle']]
 
 # print(timestamp_list)
 # c = (
