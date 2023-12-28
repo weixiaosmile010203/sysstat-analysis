@@ -6,3 +6,5 @@ Lib
 Include
 Scripts
 pyvenv.cfg
+/*.html
+bin/

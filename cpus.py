@@ -1,6 +1,5 @@
 import pyecharts.options as opts
-from pyecharts.charts import Line
-from pyecharts.faker import Faker
+from pyecharts.charts import Line, Page
 import json
 import os
 
@@ -18,9 +17,9 @@ for host in data['sysstat']['hosts']:
             cpus.append(cpu)
             
 
-for cpu in cpus:
-    print(cpu.get('cpu'))
-    print(cpu)
+# for cpu in cpus:
+#     print(cpu.get('cpu'))
+#     print(cpu)
     
 cpu_cores = data['sysstat']['hosts'][0]['number-of-cpus']
 
@@ -49,139 +48,61 @@ for cpu in cpus:
     cpu_gnice_list[cpu['cpu']] = cpu_gnice_list.get(cpu['cpu'], []) + [cpu['gnice']]
     cpu_idle_list[cpu['cpu']] = cpu_idle_list.get(cpu['cpu'], []) + [cpu['idle']]
 
-# print(timestamp_list)
-# c = (
-#     Line()
-#     .add_xaxis(timestamp_list)
-#     .add_yaxis("usr", cpu_usr_list, is_smooth=True)
-#     .add_yaxis("nice", cpu_nice_list, is_smooth=True)
-#     .add_yaxis("sys", cpu_sys_list, is_smooth=True)
-#     .add_yaxis("iowait", cpu_iowait_list, is_smooth=True)
-#     .add_yaxis("steal", cpu_steal_list, is_smooth=True)
-#     .add_yaxis("irq", cpu_irq_list, is_smooth=True)
-#     .add_yaxis("soft", cpu_soft_list, is_smooth=True)
-#     .add_yaxis("guest", cpu_guest_list, is_smooth=True)
-#     .add_yaxis("gnice",  cpu_gnice_list, is_smooth=True)
-#     .add_yaxis("idle", cpu_idle_list, is_smooth=True)
-#     .set_series_opts(
-#         areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-#         label_opts=opts.LabelOpts(is_show=True),
-#     )
-#     .set_global_opts(
-#         title_opts=opts.TitleOpts(title="CPU Usage"),
-#         xaxis_opts=opts.AxisOpts(
-#             axistick_opts=opts.AxisTickOpts(is_align_with_label=True),
-#             is_scale=False,
-#             boundary_gap=False,
-#         ),
-#     )
-#     .render("line_areastyle_boundary_gap.html")
-# )
+# 初始化页面
+page = Page()
 
-import pyecharts.options as opts
-from pyecharts.charts import Line
+# 遍历每个 CPU 的数据，创建对应的图表
+cores = []
+for cpu in cpus:
+    if cpu['cpu'] not in cores:
+        cores.append(cpu['cpu'])
+for i in cores:   
+    # 创建 Line 图表
+    print(i)
+    line = Line()
+    line.add_xaxis(timestamp_list)
+    line.add_yaxis(f"{i}_usr", cpu_usr_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_nice", cpu_nice_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_sys", cpu_sys_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_iowait", cpu_iowait_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_steal", cpu_steal_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_irq", cpu_irq_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_soft", cpu_soft_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_guest", cpu_guest_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_gnice", cpu_gnice_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    line.add_yaxis(f"{i}_idle", cpu_idle_list[i], label_opts=opts.LabelOpts(is_show=False),areastyle_opts=opts.AreaStyleOpts(opacity=0.5))
+    
+    # 设置图表的标题和全局选项
+    line.set_global_opts(
+        title_opts=opts.TitleOpts(title=f"CPU %s Usage Over Time" % i
+                      , title_textstyle_opts=opts.TextStyleOpts(font_size=25)
+                      ),
+        tooltip_opts=opts.TooltipOpts(trigger="axis", axis_pointer_type="cross"
+                                      , background_color="rgba(245, 245, 245, 0.8)"
+                                      , border_width=1
+                                      , border_color="#ccc"
+                                      , textstyle_opts=opts.TextStyleOpts(color="#000")
+                                      ),
+        # 设置 Y 轴为值轴
+        yaxis_opts=opts.AxisOpts(type_="value", axistick_opts=opts.AxisTickOpts(is_show=True)),
+        # 设置 X 轴为时间轴
+        xaxis_opts=opts.AxisOpts(type_="category", boundary_gap=False, axistick_opts=opts.AxisTickOpts(is_show=True)),
+        # 设置图例
+        legend_opts=opts.LegendOpts(pos_right="-10", pos_top="middle", orient="vertical",),
+        # 设置数据缩放
+        datazoom_opts=[opts.DataZoomOpts(range_start=0, range_end=100, type_="slider",)],
+        # 设置工具箱
+        toolbox_opts=opts.ToolboxOpts(is_show=False,
+                                      feature={
+                "dataZoom": {"title": {"zoom": "区域缩放", "zoomin": "局部缩放", "zoomout": "全局缩放"}},
+                "magicType": {"title": {"line": "切换为折线图", "bar": "切换为柱状图"}},
+                "restore": {"title": "还原"},
+                "saveAsImage": {"title": "保存为图片"},
+            }),
+    )
+    
+    # 将图表添加到页面
+    page.add(line)
 
-"""
-Gallery 使用 pyecharts 1.1.0
-参考地址: https://echarts.apache.org/examples/editor.html?c=area-stack
-
-目前无法实现的功能:
-
-暂无
-"""
-
-
-
-
-
-(
-    Line()
-    .add_xaxis(xaxis_data=timestamp_list)
-    .add_yaxis(
-        series_name="usr",
-        stack="总量",
-        y_axis=cpu_usr_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="nice",
-        stack="总量",
-        y_axis=cpu_nice_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="sys",
-        stack="总量",
-        y_axis=cpu_sys_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="iowait",
-        stack="总量",
-        y_axis=cpu_iowait_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="steal",
-        stack="总量",
-        y_axis=cpu_steal_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="irq",
-        stack="总量",
-        y_axis=cpu_irq_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="soft",
-        stack="总量",
-        y_axis=cpu_soft_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="guest",
-        stack="总量",
-        y_axis=cpu_guest_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="gnice",
-        stack="总量",
-        y_axis=cpu_gnice_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=False),
-    )
-    .add_yaxis(
-        series_name="idle",
-        stack="总量",
-        y_axis=cpu_idle_list,
-        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
-        label_opts=opts.LabelOpts(is_show=True, position="top"),
-    )
-    .set_global_opts(
-        title_opts=opts.TitleOpts(title="CPU使用率"),
-        tooltip_opts=opts.TooltipOpts(trigger="axis", axis_pointer_type="cross"),
-        yaxis_opts=opts.AxisOpts(
-            type_="value",
-            axistick_opts=opts.AxisTickOpts(is_show=True),
-            splitline_opts=opts.SplitLineOpts(is_show=True),
-            max_=100,
-        ),
-         datazoom_opts=[
-            opts.DataZoomOpts(range_start=0, range_end=100),
-            opts.DataZoomOpts(type_="inside", range_start=0, range_end=100),
-        ],
-        xaxis_opts=opts.AxisOpts(type_="category", boundary_gap=False),
-
-    )
-    .render("stacked_area_chart.html")
-)
+# 渲染页面，生成 HTML 文件，可以在浏览器中打开查看所有图表
+page.render("cpu_usage_all.html")
