@@ -28,11 +28,28 @@ print(len(timestamp_list))
 print(len(memfree))
 
 
-line = (
+import pyecharts.options as opts
+from pyecharts.charts import Line
+from pyecharts.faker import Faker
+
+
+c = (
     Line()
     .add_xaxis(timestamp_list)
-    .add_yaxis("内存", memfree,  is_smooth=True)
-    .set_global_opts(title_opts=opts.TitleOpts(title="内存剩余情况"))
-
+    .add_yaxis("free", memfree, is_smooth=True)
+    .add_yaxis("used", memused, is_smooth=True)
+    .set_series_opts(
+        areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
+        label_opts=opts.LabelOpts(is_show=False),
+    )
+    .set_global_opts(
+        title_opts=opts.TitleOpts(title="内存使用"),
+        xaxis_opts=opts.AxisOpts(
+            axistick_opts=opts.AxisTickOpts(is_align_with_label=True),
+            is_scale=False,
+            boundary_gap=False,
+        ),
+        datazoom_opts=[opts.DataZoomOpts(range_start=0, range_end=100)],
+    )
+    .render("line_areastyle_boundary_gap.html")
 )
-line.render('memory.html')
