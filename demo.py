@@ -55,5 +55,8 @@ for host in data['sysstat']['hosts']:
         disks.append(statistic['disk'])
         # 获取network列表
         networks.append(statistic['network'])
-for cpu in cpus:
-    print(cpu)
+# for cpu in cpus:
+#     print(cpu)
+
+for net in networks:
+    print(net['net-dev'])

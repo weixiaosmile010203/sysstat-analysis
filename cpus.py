@@ -47,7 +47,7 @@ for cpu in cpus:
     cpu_guest_list[cpu['cpu']] = cpu_guest_list.get(cpu['cpu'], []) + [cpu['guest']]
     cpu_gnice_list[cpu['cpu']] = cpu_gnice_list.get(cpu['cpu'], []) + [cpu['gnice']]
     cpu_idle_list[cpu['cpu']] = cpu_idle_list.get(cpu['cpu'], []) + [cpu['idle']]
-
+    print(cpu['cpu'], cpu['usr'])
 # 初始化页面
 page = Page()
 
