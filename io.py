@@ -3,7 +3,7 @@ from pyecharts.charts import Line, Page
 import json, os
 from pyecharts.options import InitOpts
 
-data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa01.json')))
+data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa17.json')))
 # 获取时间戳列表
 timestamps = []
 io = []
@@ -26,13 +26,15 @@ io_dtps = []
 io_bdscd = []
 
 for i in io:
+    print(i)
     io_tps.append(i['tps'])
     io_rtps.append(i['io-reads']['rtps'])
     io_wtps.append(i['io-writes']['wtps'])
     io_bread.append(i['io-reads']['bread'])
     io_bwrtn.append(i['io-writes']['bwrtn'])
-    io_dtps.append(i['io-discard']['dtps'])
-    io_bdscd.append(i['io-discard']['bdscd'])
+    # 兼容不同版本sysstat输出的不同列
+    io_dtps.append(i.get('io-discard', {}).get('dtps', 0))
+    io_bdscd.append(i.get('io-discard', {}).get('bdscd', 0))
 
 # Create the charts
 page = Page()

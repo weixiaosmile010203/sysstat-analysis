@@ -8,3 +8,4 @@ Scripts
 pyvenv.cfg
 /*.html
 bin/
+sa*.json

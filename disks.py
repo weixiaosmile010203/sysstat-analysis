@@ -3,7 +3,7 @@ from pyecharts.charts import Line, Page
 import json, os
 from pyecharts.options import InitOpts
 
-data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa01.json')))
+data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa17.json')))
 # 获取时间戳列表
 timestamps = []
 disks = []
@@ -37,10 +37,10 @@ for disk in disks:
         disk_tps[i['disk-device']] = disk_tps.get(i['disk-device'], []) + [i['tps']]
         disk_rd_sec[i['disk-device']] = disk_rd_sec.get(i['disk-device'], []) + [i['rd_sec']]
         disk_wr_sec[i['disk-device']] = disk_wr_sec.get(i['disk-device'], []) + [i['wr_sec']]
-        disk_dc_sec[i['disk-device']] = disk_dc_sec.get(i['disk-device'], []) + [i['dc_sec']]
+        disk_dc_sec[i['disk-device']] = disk_dc_sec.get(i['disk-device'], []) + [i.get('dc_sec', 0)] # 兼容低版本sysstat输出的不同列
         disk_rkB[i['disk-device']] = disk_rkB.get(i['disk-device'], []) + [i['rkB']]
         disk_wkB[i['disk-device']] = disk_wkB.get(i['disk-device'], []) + [i['wkB']]
-        disk_dkB[i['disk-device']] = disk_dkB.get(i['disk-device'], []) + [i['dkB']]
+        disk_dkB[i['disk-device']] = disk_dkB.get(i['disk-device'], []) + [i.get('dkB', 0)] # 兼容低版本sysstat输出的不同列
         disk_avgrq_sz[i['disk-device']] = disk_avgrq_sz.get(i['disk-device'], []) + [i['avgrq-sz']]
         disk_avgqu_sz[i['disk-device']] = disk_avgqu_sz.get(i['disk-device'], []) + [i['avgqu-sz']]
         disk_areq_sz[i['disk-device']] = disk_areq_sz.get(i['disk-device'], []) + [i['areq-sz']]

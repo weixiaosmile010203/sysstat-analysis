@@ -11,7 +11,7 @@ def format_memory(mem_size):
         return f"{mem_size / 1e3:.2f} GB"
     
 
-data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa01.json')))
+data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa17.json')))
 # 获取时间戳列表
 timestamps = []
 memorys = []
@@ -139,14 +139,14 @@ mem_swap_percent = (
 mem_swap_used = (
     Line()
     .add_xaxis(timestamp_list)
-    .add_yaxis("swap使用", memswpused_percent, is_smooth=True, stack="swap_total")
+    .add_yaxis("swap使用", memswpused, is_smooth=True, stack="swap_total")
     .add_yaxis("swap剩余", memswpfree, is_smooth=True, stack="swap_total")
     .set_series_opts(
         areastyle_opts=opts.AreaStyleOpts(opacity=0.2),
         label_opts=opts.LabelOpts(is_show=False),
     )
     .set_global_opts(
-        title_opts=opts.TitleOpts(title="swap使用率", pos_top="1%"),
+        title_opts=opts.TitleOpts(title="swap可用", pos_top="1%"),
         legend_opts=opts.LegendOpts(pos_top="1%"),
         xaxis_opts=opts.AxisOpts(
             axistick_opts=opts.AxisTickOpts(is_align_with_label=True),

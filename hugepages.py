@@ -3,7 +3,7 @@ from pyecharts.charts import Line, Page
 import json, os
 from pyecharts.options import InitOpts
 
-data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa01.json')))
+data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa17.json')))
 # 获取时间戳列表
 timestamps = []
 hugepages = []
@@ -27,8 +27,8 @@ for hp in hugepages:
     hugfree.append(hp['hugfree'])
     hugused.append(hp['hugused'])
     hugused_percent.append(hp['hugused-percent'])
-    hugrsvd.append(hp['hugrsvd'])
-    hugsurp.append(hp['hugsurp'])
+    hugrsvd.append(hp.get('hugrsvd', 0))
+    hugsurp.append(hp.get('hugsurp', 0))
 
 
 page = Page()

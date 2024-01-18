@@ -3,7 +3,7 @@ from pyecharts.charts import Line, Page
 import json
 import os
 
-data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa01.json')))
+data = json.load(open(os.path.join(os.path.dirname(__file__), 'sa17.json')))
 # 获取时间戳列表
 timestamps = []
 cpus = []
