@@ -15,6 +15,12 @@ class SysStatAnalyzer:
                 timestamps.append(statistic['timestamp'])
         return [timestamp.get('date') + ' ' + timestamp.get('time') for timestamp in timestamps]
 
+    def _raw_data(self, key):
+        data = []
+        for statistic in self.data['sysstat']['hosts'][0]['statistics']:
+            data.append(statistic[key])
+        return data
+
     def _get_cpu_data(self):
         cpu_data = {}
         cpu_stats = ['usr', 'nice', 'sys', 'iowait', 'steal', 'irq', 'soft', 'guest', 'gnice', 'idle']
@@ -156,11 +162,13 @@ class SysStatAnalyzer:
     def _get_serial_data(self):
         serial_data = {}
         for statistic in self.data['sysstat']['hosts'][0]['statistics']:
-            serial = statistic['serial']
-            for i in serial:
-                serial_data.setdefault(i, []).append(serial[i])
+            serials = statistic['serial']
+            for serial in serials:
+                for line in serial:
+                    if line == 'line':
+                        continue
+                    serial_data.setdefault(serial['line'], {}).setdefault(line, []).append(serial[line])
         return serial_data
-    
     
     def _create_cpu_chart(self, cpu_data, timestamp_list):
         cores = list(cpu_data.keys())
@@ -177,18 +185,6 @@ class SysStatAnalyzer:
         cpu_data = self._get_cpu_data()
         self._create_cpu_chart(cpu_data, timestamp_list)
 
-    def analyze_memory(self):
-        # 处理内存数据的方法
-        pass
-
-    def analyze_network(self):
-        # 处理网络数据的方法
-        pass
-
-    def analyze_disk(self):
-        # 处理磁盘数据的方法
-        pass
-
     def render_page(self, output_file="output.html"):
         self.page.render(output_file)
 
@@ -203,4 +199,10 @@ analyzer._get_network_sock_data()
 analyzer._get_network_softnet_data()
 analyzer._get_disk_data()
 analyzer._get_pcsw_data()
-analyzer._get_page()
+analyzer._get_swap_data()
+analyzer._get_page_data()
+analyzer._get_io_data()
+analyzer._get_hugepage_data()
+analyzer._get_kernel_table_data()
+analyzer._get_queue_data()
+analyzer._get_serial_data()
