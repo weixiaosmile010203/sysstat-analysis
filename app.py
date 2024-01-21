@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 def line_base():
     line_data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
-    print(line_data._get_pcsw_data()['proc'])
     pcsw_char = (
         Line()
         .add_xaxis(line_data._get_timestamp_list())
