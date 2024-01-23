@@ -1,59 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Awesome-pyecharts</title>
-    <link href="../static/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
-</head>
-<body>
-    <main>
-    <div class="container">
-        <header class="d-flex justify-content-center py-3">
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">CPU</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">内存</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">网络</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">磁盘</a></li>
-          </ul>
-        </header>
-      </div>
-    <div class="container" id="bar" style="width:1000px; height:600px;"></div>
-    <script>
-        $(
-            function () {
-                var chart = echarts.init(document.getElementById('bar'), 'white', {renderer: 'canvas'});
-                $.ajax({
-                    type: "GET",
-                    url: "http://127.0.0.1:5000/pcsw_char",
-                    dataType: 'json',
-                    success: function (result) {
-                        chart.setOption(result);
-                    }
-                });
-            }
-        )
+{% extends "index_template.html" %}
+{% block body %}
+<div class="container" id="cpu_char" style="align-items: center; width: 800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('cpu_char'));
+    var option = {
+          title: {
+              text: "进程及上下文切换次数",
+              subtext: "单位：次",
+              left: 'left',
+          },
+          legend: {
+              data: ['process', 'context'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ p_data|tojson }}'),
+              name: 'process',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{ c_data|tojson }}'),
+              name: 'context',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          }],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
     </script>
-        <div class="container" id="line" style="width:1000px; height:600px;"></div>
-        <script>
-            $(
-                function () {
-                    var chart = echarts.init(document.getElementById('line'), 'white', {renderer: 'canvas'});
-                    $.ajax({
-                        type: "GET",
-                        url: "http://127.0.0.1:5000/pcsw_char",
-                        dataType: 'json',
-                        success: function (result) {
-                            chart.setOption(result);
-                        }
-                    });
-                }
-            )
-        </script>
-        </main>
-        <script src="../static/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+{% endblock %}

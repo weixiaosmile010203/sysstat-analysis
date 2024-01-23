@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import url_for
 from flask import request, render_template
 from pyecharts import options as opts
 from pyecharts.charts import Line, Page
@@ -8,27 +9,36 @@ import json, os
 app = Flask(__name__)
 
 
-def line_base():
-    line_data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
-    pcsw_char = (
-        Line()
-        .add_xaxis(line_data._get_timestamp_list())
-        .add_yaxis("进程创建数", line_data._get_pcsw_data()['proc'])
-        .add_yaxis("上下文切换数", line_data._get_pcsw_data()['cswch'])
-        .set_global_opts(title_opts=opts.TitleOpts(title="进程和上下文切换次数", subtitle="单位：次"),
-                         datazoom_opts=opts.DataZoomOpts(),)
-    )
-    return pcsw_char
+
+def import_data():
+    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
+    return data
 
 
 @app.route('/')
-def hello():
-    return render_template('index.html')
+def home():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    p_data = data._get_pcsw_data()['proc']
+    c_data = data._get_pcsw_data()['cswch']
+    return render_template('index.html', timestamp_list=timestamp_list, p_data=p_data, c_data=c_data)
 
-@app.route('/pcsw_char')
-def get_pcsw_char():
-    c = line_base()
-    return c.dump_options_with_quotes()
+@app.route('/cpu_page')
+def cpu_page():
+    line_data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
+    timestamp_list = line_data._get_timestamp_list()
+    p_data = line_data._get_pcsw_data()['proc']
+    c_data = line_data._get_pcsw_data()['cswch']
+    return render_template('cpu.html', timestamp_list=timestamp_list, p_data=p_data, c_data=c_data)
+
+@app.route('/mem_page')
+def mem_page():
+    line_data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
+    timestamp_list = line_data._get_timestamp_list()
+    p_data = line_data._get_pcsw_data()['proc']
+    c_data = line_data._get_pcsw_data()['cswch']
+    return render_template('memory.html', timestamp_list=timestamp_list, p_data=p_data, c_data=c_data)
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
