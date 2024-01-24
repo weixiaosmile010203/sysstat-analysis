@@ -23,38 +23,35 @@ class SysStatAnalyzer:
 
     def _get_cpu_data(self):
         cpu_data = {}
-        cpu_stats = ['usr', 'nice', 'sys', 'iowait', 'steal', 'irq', 'soft', 'guest', 'gnice', 'idle']
         for statistic in self.data['sysstat']['hosts'][0]['statistics']:
             for cpu in statistic['cpu-load']:
-                for stat in cpu_stats:
+                for stat in cpu:
+                    if stat == 'cpu':
+                        continue
                     cpu_data.setdefault(cpu['cpu'], {}).setdefault(stat, []).append(cpu[stat])
         return cpu_data
 
     def _get_memory_data(self):
         mem_data = {}
-        mem_stats = ["memfree", "avail", "memused", "memused-percent", "buffers", "cached", "commit", "commit-percent", "active", "inactive", "dirty", "anonpg", "slab", "kstack", "pgtbl", "vmused", "swpfree", "swpused", "swpused-percent", "swpcad", "swpcad-percent"]
         for statistic in self.data['sysstat']['hosts'][0]['statistics']:
-            memory = statistic['memory']
-            for stat in mem_stats:
-                mem_data.setdefault(stat, []).append(memory[stat])
+            for memory in statistic['memory']:
+                mem_data.setdefault(memory, []).append(statistic['memory'].get(memory))
         return mem_data
     
     def _get_network_dev_data(self):
         network_data = {}
-        network_stats = ["rxpck", "txpck", "rxkB", "txkB", "rxcmp", "txcmp", "rxmcst"]
         for statistic in self.data['sysstat']['hosts'][0]['statistics']:
             for net in statistic['network']['net-dev']:
-                iface = net['iface']
-                network_data.setdefault(iface, {})
-                for stat in network_stats:
-                    network_data[iface].setdefault(stat, []).append(net[stat])
-        network_stats = ['rxerr','txerr','coll','rxdrop','txdrop','txcarr','rxfram','rxfifo','txfifo']
+                for stat in net:
+                    if stat == 'iface':
+                        continue
+                    network_data.setdefault(net['iface'], {}).setdefault(stat, []).append(net[stat])
         for statistic in self.data['sysstat']['hosts'][0]['statistics']:
-            for net in statistic['network']['net-edev']:
-                iface = net['iface']
-                network_data.setdefault(iface, {})
-                for stat in network_stats:
-                    network_data[iface].setdefault(stat, []).append(net[stat])
+            for edev in statistic['network']['net-edev']:
+                for stat in edev:
+                    if stat == 'iface':
+                        continue
+                    network_data.setdefault(edev['iface'], {}).setdefault(stat, []).append(edev[stat])
         return network_data
     
     def _get_network_nfs_data(self):
@@ -187,22 +184,3 @@ class SysStatAnalyzer:
 
     def render_page(self, output_file="output.html"):
         self.page.render(output_file)
-
-# 使用示例
-analyzer = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
-analyzer._get_cpu_data()
-analyzer._get_memory_data()
-analyzer._get_network_dev_data()
-analyzer._get_network_nfs_data()
-analyzer._get_network_nfsd_data()
-analyzer._get_network_sock_data()
-analyzer._get_network_softnet_data()
-analyzer._get_disk_data()
-analyzer._get_pcsw_data()
-analyzer._get_swap_data()
-analyzer._get_page_data()
-analyzer._get_io_data()
-analyzer._get_hugepage_data()
-analyzer._get_kernel_table_data()
-analyzer._get_queue_data()
-analyzer._get_serial_data()

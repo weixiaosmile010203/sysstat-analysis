@@ -1,13 +1,15 @@
 {% extends "index_template.html" %}
 {% block body %}
-{% for cpu in cpu_data %}
-{% set keys_list = cpu_data[cpu].keys()|list %}
-<div class="container" id="{{ cpu }}" style="align-items: center; width: 1800px; height: 400px; "></div>
+
+{{ network_data}}
+{% for iface in network_data %}
+{% set keys_list = network_data[iface].keys()|list %}
+<div class="container" id="{{ iface }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("{{ cpu }}"));
+  var myChart = echarts.init(document.getElementById("{{ iface }}"));
   var option = {
         title: {
-            text: "cpu使用率({{ cpu }})",
+            text: "网卡繁忙度({{ iface }})",
             subtext: "单位：%",
             left: 'left',
         },
@@ -22,9 +24,8 @@
             type: 'value',
             },
         series: [
-            {% for i in cpu_data['all'] %}
             {
-                data:{{ cpu_data[cpu][i] }},
+            data:{{ network_data[iface][i] }},
             name: '{{ i }}',
             type: 'line',
             label: {
@@ -48,5 +49,4 @@
     };
     myChart.setOption(option);
   </script>
-{% endfor %}
 {% endblock %}

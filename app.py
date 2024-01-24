@@ -25,20 +25,25 @@ def home():
 
 @app.route('/cpu_page')
 def cpu_page():
-    line_data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
-    timestamp_list = line_data._get_timestamp_list()
-    p_data = line_data._get_pcsw_data()['proc']
-    c_data = line_data._get_pcsw_data()['cswch']
-    return render_template('cpu.html', timestamp_list=timestamp_list, p_data=p_data, c_data=c_data)
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    cpu_data = data._get_cpu_data()
+    print(cpu_data)
+    return render_template('cpu.html', timestamp_list=timestamp_list, cpu_data=cpu_data)
 
 @app.route('/mem_page')
 def mem_page():
-    line_data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
-    timestamp_list = line_data._get_timestamp_list()
-    p_data = line_data._get_pcsw_data()['proc']
-    c_data = line_data._get_pcsw_data()['cswch']
-    return render_template('memory.html', timestamp_list=timestamp_list, p_data=p_data, c_data=c_data)
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    mem_data = data._get_memory_data()
+    return render_template('memory.html', timestamp_list=timestamp_list, mem_data=mem_data)
 
+@app.route('/network_page')
+def network_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    network_data = data._get_network_dev_data()
+    return render_template('network.html', timestamp_list=timestamp_list, network_data=network_data)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

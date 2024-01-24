@@ -16,7 +16,7 @@
             <li class="nav-item"><a id="homelink" href="{{ url_for('home') }}" class="nav-link">Home</a></li>
             <li class="nav-item"><a id="cpulink" href="{{ url_for('cpu_page') }}" class="nav-link">CPU</a></li>
             <li class="nav-item"><a id="memlink" href="{{ url_for('mem_page') }}" class="nav-link">内存</a></li>
-            <li class="nav-item"><a id="netlink" href="#" class="nav-link">网络</a></li>
+            <li class="nav-item"><a id="netlink" href="{{ url_for('network_page') }}" class="nav-link">网络</a></li>
             <li class="nav-item"><a id="disklink" href="#" class="nav-link">磁盘</a></li>
           </ul>
         </header>
