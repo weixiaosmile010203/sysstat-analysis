@@ -1,9 +1,7 @@
 {% extends "index_template.html" %}
 {% block body %}
-
 {{ network_data}}
 {% for iface in network_data %}
-{% set keys_list = network_data[iface].keys()|list %}
 <div class="container" id="{{ iface }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
   var myChart = echarts.init(document.getElementById("{{ iface }}"));
@@ -14,7 +12,7 @@
             left: 'left',
         },
         legend: {
-            data: {{ keys_list|safe }},
+            data: [],
         },
         xAxis: {
             type: 'category',
@@ -25,17 +23,15 @@
             },
         series: [
             {
-            data:{{ network_data[iface][i] }},
-            name: '{{ i }}',
+            data: JSON.parse('{{ network_data[iface]["ifutil-percent"]|tojson }}'),
+            name: 'ifutil-percent',
             type: 'line',
             label: {
                 normal: {
                     show: true,
-                    position: 'top'
+                    position: 'top',
                 }
-            }
-        },
-        {% endfor %}
+            }},
     ],
         dataZoom: [{
             type: 'slider',
@@ -49,4 +45,53 @@
     };
     myChart.setOption(option);
   </script>
+
+<div class="container" id="{{ iface }}" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var statList = ['rxpck','txpck','rxerr','txerr','coll','txdrop','rxdrop','txcarr','rxfram','rxfifo','txfifo']
+  for (var i = 0; i < statList.length; i++) {
+        series.push({
+            data: JSON.parse('{{ network_data[iface][statList[i]]|tojson }}'),
+            name: statList[i],
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }
+        });
+    }
+  var myChart = echarts.init(document.getElementById("{{ iface }}"));
+  var option = {
+        title: {
+            text: "数据包({{ iface }})",
+            subtext: "单位：Packets/sec",
+            left: 'left',
+        },
+        legend: {
+            data: [],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: series,
+
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+ {% endfor %}
 {% endblock %}

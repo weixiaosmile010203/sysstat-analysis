@@ -12,7 +12,7 @@
             left: 'left',
         },
         legend: {
-            data: {{ keys_list|safe }},
+            data: JSON.parse('{{ keys_list|tojson}}'),
         },
         xAxis: {
             type: 'category',
@@ -24,7 +24,7 @@
         series: [
             {% for i in cpu_data['all'] %}
             {
-                data:{{ cpu_data[cpu][i] }},
+            data:{{ cpu_data[cpu][i] }},
             name: '{{ i }}',
             type: 'line',
             label: {
