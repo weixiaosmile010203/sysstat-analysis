@@ -45,6 +45,14 @@ def network_page():
     network_data = data._get_network_dev_data()
     return render_template('network.html', timestamp_list=timestamp_list, network_data=network_data)
 
+@app.route('/nfs_page')
+def nfs_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    nfs_data = data._get_network_nfs_data()
+    return render_template('network-nfs.html', timestamp_list=timestamp_list, nfs_data=nfs_data)
+
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':

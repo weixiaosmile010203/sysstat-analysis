@@ -1,6 +1,5 @@
 {% extends "index_template.html" %}
 {% block body %}
-{{ network_data}}
 {% for iface in network_data %}
 <div class="container" id="{{ iface }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
@@ -46,31 +45,17 @@
     myChart.setOption(option);
   </script>
 
-<div class="container" id="{{ iface }}" style="align-items: center; width: 1800px; height: 400px; "></div>
+<div class="container" id="{{ iface }}-packages" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var statList = ['rxpck','txpck','rxerr','txerr','coll','txdrop','rxdrop','txcarr','rxfram','rxfifo','txfifo']
-  for (var i = 0; i < statList.length; i++) {
-        series.push({
-            data: JSON.parse('{{ network_data[iface][statList[i]]|tojson }}'),
-            name: statList[i],
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top',
-                }
-            }
-        });
-    }
-  var myChart = echarts.init(document.getElementById("{{ iface }}"));
+  var myChart = echarts.init(document.getElementById("{{ iface }}-packages"));
   var option = {
         title: {
             text: "数据包({{ iface }})",
-            subtext: "单位：Packets/sec",
+            subtext: "单位：Packets/s",
             left: 'left',
         },
         legend: {
-            data: [],
+            data: ['rxpck','txpck','rxerr','txerr','coll','txdrop','rxdrop','txcarr','rxfram','rxfifo','txfifo'],
         },
         xAxis: {
             type: 'category',
@@ -79,8 +64,270 @@
         yAxis: {
             type: 'value',
             },
-        series: series,
+        series: [
+            {
+            data: JSON.parse('{{ network_data[iface]["rxpck"]|tojson }}'),
+            name: 'rxpck',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["txpck"]|tojson }}'),
+            name: 'txpck',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["rxerr"]|tojson }}'),
+            name: 'rxerr',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["txerr"]|tojson }}'),
+            name: 'txerr',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["coll"]|tojson }}'),
+            name: 'coll',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["txdrop"]|tojson }}'),
+            name: 'txdrop',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["rxdrop"]|tojson }}'),
+            name: 'rxdrop',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["txcarr"]|tojson }}'),
+            name: 'txcarr',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["rxfram"]|tojson }}'),
+            name: 'rxfram',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["rxfifo"]|tojson }}'),
+            name: 'rxfifo',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["txfifo"]|tojson }}'),
+            name: 'txfifo',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
 
+<div class="container" id="{{ iface }}-data" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("{{ iface }}-data"));
+  var option = {
+        title: {
+            text: "数据量({{ iface }})",
+            subtext: "单位：kB",
+            left: 'left',
+        },
+        legend: {
+            data: ['txkB','rxkB'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ network_data[iface]["txkB"]|tojson }}'),
+            name: 'txkB',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["rxkB"]|tojson }}'),
+            name: 'rxkB',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+
+<div class="container" id="{{ iface }}-cmp" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("{{ iface }}-cmp"));
+  var option = {
+        title: {
+            text: "压缩数据包数量({{ iface }})",
+            subtext: "单位：packets/s",
+            left: 'left',
+        },
+        legend: {
+            data: ['txcmp','rxcmp'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ network_data[iface]["txcmp"]|tojson }}'),
+            name: 'txcmp',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ network_data[iface]["rxcmp"]|tojson }}'),
+            name: 'rxcmp',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+
+<div class="container" id="{{ iface }}-rxmcst" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("{{ iface }}-rxmcst"));
+  var option = {
+        title: {
+            text: "接收的多播包数量({{ iface }})",
+            subtext: "单位：packets/s",
+            left: 'left',
+        },
+        legend: {
+            data: ['rxmcst'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ network_data[iface]["rxmcst"]|tojson }}'),
+            name: 'rxmcst',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
         dataZoom: [{
             type: 'slider',
             start: 0,

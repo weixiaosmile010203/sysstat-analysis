@@ -1,0 +1,7 @@
+{% extends "index_template.html" %}
+{% block body %}
+{{ nfs_data }}
+{% for nfs in nfs_data %}
+{{ nfs }}
+{% endfor %}
+{% endblock %}
