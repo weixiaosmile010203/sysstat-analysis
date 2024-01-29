@@ -1,0 +1,229 @@
+{% extends "index_template.html" %}
+{% block body %}
+<div class="container" id="packet" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("packet"));
+  var option = {
+        title: {
+            text: "NFSD Packet",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['packet', 'tcp', 'udp'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ nfsd_data["packet"]|tojson }}'),
+            name: 'packet',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ nfsd_data["tcp"]|tojson }}'),
+            name: 'tcp',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ nfsd_data["udp"]|tojson }}'),
+            name: 'udp',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+
+<div class="container" id="hit" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("hit"));
+  var option = {
+        title: {
+            text: "NFSD Hit",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['hit', 'miss'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ nfsd_data["hit"]|tojson }}'),
+            name: 'hit',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ nfsd_data["miss"]|tojson }}'),
+            name: 'miss',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+
+<div class="container" id="sreadwrite" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("sreadwrite"));
+  var option = {
+        title: {
+            text: "NFSD ReadWrite",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['read', 'write'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ nfsd_data["sread"]|tojson }}'),
+            name: 'read',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ nfsd_data["swrite"]|tojson }}'),
+            name: 'write',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+
+<div class="container" id="saccess" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("saccess"));
+  var option = {
+        title: {
+            text: "NFSD Access",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['saccess', 'sgetatt'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ nfsd_data["saccess"]|tojson }}'),
+            name: 'saccess',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ nfsd_data["sgetatt"]|tojson }}'),
+            name: 'sgetatt',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+{% endblock %}

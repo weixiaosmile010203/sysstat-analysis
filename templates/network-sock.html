@@ -1,16 +1,16 @@
 {% extends "index_template.html" %}
 {% block body %}
-<div class="container" id="call" style="align-items: center; width: 1800px; height: 400px; "></div>
+<div class="container" id="socket" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("call"));
+  var myChart = echarts.init(document.getElementById("socket"));
   var option = {
         title: {
-            text: "NFS Call",
-            subtext: "单位：次",
+            text: "Network Socket",
+            subtext: "单位：个",
             left: 'left',
         },
         legend: {
-            data: ['call', 'retrans'],
+            data: ['totsck', 'tcpsck', 'udpsck','rawsck'],
         },
         xAxis: {
             type: 'category',
@@ -21,8 +21,8 @@
             },
         series: [
             {
-            data: JSON.parse('{{ nfs_data["call"]|tojson }}'),
-            name: 'call',
+            data: JSON.parse('{{ socket_data["totsck"]|tojson }}'),
+            name: 'totsck',
             type: 'line',
             label: {
                 normal: {
@@ -31,8 +31,73 @@
                 }
             }},
             {
-            data: JSON.parse('{{ nfs_data["retrans"]|tojson }}'),
-            name: 'retrans',
+            data: JSON.parse('{{ socket_data["tcpsck"]|tojson }}'),
+            name: 'tcpsck',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ socket_data["udpsck"]|tojson }}'),
+            name: 'udpsck',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ socket_data["rawsck"]|tojson }}'),
+            name: 'rawsck',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+
+<div class="container" id="ip-frag" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("ip-frag"));
+  var option = {
+        title: {
+            text: "IP Fragments",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['ip-frag'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ socket_data["ip-frag"]|tojson }}'),
+            name: 'ip-frag',
             type: 'line',
             label: {
                 normal: {
@@ -54,17 +119,17 @@
     myChart.setOption(option);
   </script>
 
-<div class="container" id="readwrite" style="align-items: center; width: 1800px; height: 400px; "></div>
+<div class="container" id="tcp-tw" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("readwrite"));
+  var myChart = echarts.init(document.getElementById("tcp-tw"));
   var option = {
         title: {
-            text: "NFS Read/Write",
+            text: "TCP Time Wait",
             subtext: "单位：次",
             left: 'left',
         },
         legend: {
-            data: ['read', 'write'],
+            data: ['tcp-tw'],
         },
         xAxis: {
             type: 'category',
@@ -75,18 +140,8 @@
             },
         series: [
             {
-            data: JSON.parse('{{ nfs_data["read"]|tojson }}'),
-            name: 'read',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top',
-                }
-            }},
-            {
-            data: JSON.parse('{{ nfs_data["write"]|tojson }}'),
-            name: 'write',
+            data: JSON.parse('{{ socket_data["tcp-tw"]|tojson }}'),
+            name: 'tcp-tw',
             type: 'line',
             label: {
                 normal: {
@@ -108,47 +163,4 @@
     myChart.setOption(option);
   </script>
 
-<div class="container" id="access" style="align-items: center; width: 1800px; height: 400px; "></div>
-<script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("access"));
-  var option = {
-        title: {
-            text: "NFS Access",
-            subtext: "单位：次",
-            left: 'left',
-        },
-        legend: {
-            data: ['access'],
-        },
-        xAxis: {
-            type: 'category',
-            data: JSON.parse('{{ timestamp_list|tojson }}')
-        },
-        yAxis: {
-            type: 'value',
-            },
-        series: [
-            {
-            data: JSON.parse('{{ nfs_data["access"]|tojson }}'),
-            name: 'access',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top',
-                }
-            }},
-    ],
-        dataZoom: [{
-            type: 'slider',
-            start: 0,
-            end: 100
-        }, {
-            type: 'inside',
-            start: 0,
-            end: 100
-        }],
-    };
-    myChart.setOption(option);
-  </script>
 {% endblock %}

@@ -15,13 +15,7 @@ def import_data():
     return data
 
 
-@app.route('/')
-def home():
-    data = import_data()
-    timestamp_list = data._get_timestamp_list()
-    p_data = data._get_pcsw_data()['proc']
-    c_data = data._get_pcsw_data()['cswch']
-    return render_template('index.html', timestamp_list=timestamp_list, p_data=p_data, c_data=c_data)
+
 
 @app.route('/cpu_page')
 def cpu_page():
@@ -51,6 +45,55 @@ def nfs_page():
     timestamp_list = data._get_timestamp_list()
     nfs_data = data._get_network_nfs_data()
     return render_template('network-nfs.html', timestamp_list=timestamp_list, nfs_data=nfs_data)
+
+@app.route('/nfsd_page')
+def nfsd_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    nfsd_data = data._get_network_nfsd_data()
+    return render_template('network-nfsd.html', timestamp_list=timestamp_list, nfsd_data=nfsd_data)
+
+@app.route('/socket_page')
+def socket_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    socket_data = data._get_network_sock_data()
+    return render_template('network-sock.html', timestamp_list=timestamp_list, socket_data=socket_data)
+
+@app.route('/softnet_page')
+def softnet_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    softnet_data = data._get_network_softnet_data()
+    return render_template('network-softnet.html', timestamp_list=timestamp_list, softnet_data=softnet_data)
+
+@app.route('/disk_page')
+def disk_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    disk_data = data._get_disk_data()
+    return render_template('disks.html', timestamp_list=timestamp_list, disk_data=disk_data)
+
+@app.route('/pcsw_page')
+def home():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    pcsw_data = data._get_pcsw_data()
+    return render_template('pcsw.html', timestamp_list=timestamp_list, pcsw_data=pcsw_data)
+
+@app.route('/swap_page')
+def swap_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    swap_data = data._get_swap_data()
+    return render_template('swap_page.html', timestamp_list=timestamp_list, swap_data=swap_data)
+
+@app.route('/paging_page')
+def paging_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    paging_data = data._get_page_data()
+    return render_template('paging.html', timestamp_list=timestamp_list, paging_data=paging_data)
 
 
 @app.route('/upload', methods=['GET', 'POST'])

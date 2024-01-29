@@ -1,0 +1,274 @@
+{% extends "index_template.html" %}
+{% block body %}
+<div class="container" id="page_fault" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('page_fault'));
+    var option = {
+          title: {
+              text: "缺页中断和主缺页中断",
+              subtext: "单位：次",
+              left: 'left',
+          },
+          legend: {
+              data: ['fault', 'majflt'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ paging_data["fault"]|tojson }}'),
+              name: 'fault',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  paging_data["majflt"]|tojson }}'),
+              name: 'majflt',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          }],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="page_io" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('page_io'));
+    var option = {
+          title: {
+              text: "读写和交换活动",
+              subtext: "单位：次",
+              left: 'left',
+          },
+          legend: {
+              data: ['pgpgin', 'pgpgout','pgsteal'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ paging_data["pgpgin"]|tojson }}'),
+              name: 'pgpgin',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  paging_data["pgpgout"]|tojson }}'),
+              name: 'pgpgout',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  paging_data["pgsteal"]|tojson }}'),
+              name: 'pgsteal',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          }
+        ],  
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="page_free" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('page_free'));
+    var option = {
+          title: {
+              text: "空闲页面和扫描页面",
+              subtext: "单位：页面/秒",
+              left: 'left',
+          },
+          legend: {
+              data: ['pgfree', 'pgscank','pgscand'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ paging_data["pgfree"]|tojson }}'),
+              name: 'pgfree',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  paging_data["pgscank"]|tojson }}'),
+              name: 'pgscank',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  paging_data["pgscand"]|tojson }}'),
+              name: 'pgscand',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          }
+        ],  
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="page_steal;" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('page_steal'));
+    var option = {
+          title: {
+              text: "页面偷取",
+              subtext: "单位：页面/秒",
+              left: 'left',
+          },
+          legend: {
+              data: ['pgsteal',],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ paging_data["pgsteal"]|tojson }}'),
+              name: 'pgsteal',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },],  
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="vmeff_percent;" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('vmeff_percent'));
+    var option = {
+          title: {
+              text: "虚拟内存效率",
+              subtext: "单位：%",
+              left: 'left',
+          },
+          legend: {
+              data: ['vmeff-percent'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ paging_data["vmeff-percent"]|tojson }}'),
+              name: 'vmeff-percent',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },],  
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+{% endblock %}

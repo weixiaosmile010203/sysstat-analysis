@@ -1,0 +1,56 @@
+{% extends "index_template.html" %}
+{% block body %}
+<div class="container" id="swap_page_char" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('swap_page_char'));
+    var option = {
+          title: {
+              text: "swap in/out 次数",
+              subtext: "单位：次",
+              left: 'left',
+          },
+          legend: {
+              data: ['pswpin', 'pswpout'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ swap_data["pswpin"]|tojson }}'),
+              name: 'pswpin',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  swap_data["pswpout"]|tojson }}'),
+              name: 'pswpout',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          }],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+{% endblock %}
