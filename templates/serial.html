@@ -1,0 +1,135 @@
+{% extends "index_template.html" %}
+{% block body %}
+{{ serial_data }}
+{% for serial in serial_data %}
+{{ serial }}
+
+<div class="container" id="{{ serial }}-data" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("{{ serial }}-data"));
+  var option = {
+        title: {
+            text: "串口数据传输",
+            subtext: "单位：bytes",
+            left: 'left',
+        },
+        legend: {
+            data: ['接收字符数','发送字符数'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ serial_data[serial]["rcvin"]|tojson }}'),
+            name: '接收字符数',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ serial_data[serial]["xmtin"]|tojson }}'),
+            name: '发送字符数',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+
+<div class="container" id="{{ serial }}-error" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("{{ serial }}-error"));
+  var option = {
+        title: {
+            text: "串口错误数量",
+            subtext: "单位：个",
+            left: 'left',
+        },
+        legend: {
+            data: ['framerr','prtyerr','brk','ovrun'],
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+            },
+        series: [
+            {
+            data: JSON.parse('{{ serial_data[serial]["framerr"]|tojson }}'),
+            name: 'framerr',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ serial_data[serial]["prtyerr"]|tojson }}'),
+            name: 'prtyerr',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ serial_data[serial]["brk"]|tojson }}'),
+            name: 'brk',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+            {
+            data: JSON.parse('{{ serial_data[serial]["ovrun"]|tojson }}'),
+            name: 'ovrun',
+            type: 'line',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                }
+            }},
+    ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+  </script>
+{% endfor %}
+{% endblock %}

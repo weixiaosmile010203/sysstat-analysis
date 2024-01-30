@@ -1,0 +1,145 @@
+{% extends "index_template.html" %}
+{% block body %}
+{{ huge_data }}
+<div class="container" id="kernel-fdAndInode" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('kernel-fdAndInode'));
+    var option = {
+          title: {
+              text: "文件描述符和inode使用情况",
+              subtext: "单位：个",
+              left: 'left',
+          },
+          legend: {
+              data: ['file-nr', 'inode-nr'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ kernel_data["file-nr"]|tojson }}'),
+              name: 'file-nr',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  kernel_data["inode-nr"]|tojson }}'),
+              name: 'inode-nr',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          }],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="kernel-dentunusd" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('kernel-dentunusd'));
+    var option = {
+          title: {
+              text: "未使用的内核密钥槽位数量",
+              subtext: "单位：个",
+              left: 'left',
+          },
+          legend: {
+              data: ['dentunusd'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ kernel_data["dentunusd"]|tojson }}'),
+              name: 'dentunusd',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="pty" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('pty'));
+    var option = {
+          title: {
+              text: "pty使用情况",
+              subtext: "单位：个",
+              left: 'left',
+          },
+          legend: {
+              data: ['pty'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [
+            {
+              data: JSON.parse('{{ kernel_data["pty-nr"]|tojson }}'),
+              name: 'pty',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+        ],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+{% endblock %}

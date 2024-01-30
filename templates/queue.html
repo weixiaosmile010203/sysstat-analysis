@@ -1,0 +1,169 @@
+{% extends "index_template.html" %}
+{% block body %}
+{{ huge_data }}
+<div class="container" id="queue-run" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('queue-run'));
+    var option = {
+          title: {
+              text: "运行队列长度和可运行进程数量",
+              subtext: "单位：个",
+              left: 'left',
+          },
+          legend: {
+              data: ['runq-sz', 'plist-sz'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [{
+              data: JSON.parse('{{ queue_data["runq-sz"]|tojson }}'),
+              name: 'runq-sz',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{  queue_data["plist-sz"]|tojson }}'),
+              name: 'plist-sz',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          }],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="queue-load" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('queue-load'));
+    var option = {
+          title: {
+              text: "平均负载",
+              subtext: "单位：个",
+              left: 'left',
+          },
+          legend: {
+              data: ['ldavg-1', 'ldavg-5', 'ldavg-15'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [
+            {
+              data: JSON.parse('{{ queue_data["ldavg-1"]|tojson }}'),
+              name: 'ldavg-1',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{ queue_data["ldavg-5"]|tojson }}'),
+              name: 'ldavg-5',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+          {
+              data: JSON.parse('{{ queue_data["ldavg-15"]|tojson }}'),
+              name: 'ldavg-15',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+        ],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="queue-blocked" style="align-items: center; width: 1800px; height: 400px; "></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('queue-blocked'));
+    var option = {
+          title: {
+              text: "阻塞进程数量",
+              subtext: "单位：个",
+              left: 'left',
+          },
+          legend: {
+              data: ['blocked'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [
+            {
+              data: JSON.parse('{{ queue_data["blocked"]|tojson }}'),
+              name: 'blocked',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top'
+                  }
+              }
+          },
+        ],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+{% endblock %}

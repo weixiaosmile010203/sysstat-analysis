@@ -95,6 +95,40 @@ def paging_page():
     paging_data = data._get_page_data()
     return render_template('paging.html', timestamp_list=timestamp_list, paging_data=paging_data)
 
+@app.route('/io_page')
+def io_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    io_data = data._get_io_data()
+    return render_template('io.html', timestamp_list=timestamp_list, io_data=io_data)
+
+@app.route('/huge_page')
+def huge_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    huge_data = data._get_hugepage_data()
+    return render_template('hugepage.html', timestamp_list=timestamp_list, huge_data=huge_data)
+
+@app.route('/kernel_page')
+def kernel_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    kernel_data = data._get_kernel_table_data()
+    return render_template('kernel.html', timestamp_list=timestamp_list, kernel_data=kernel_data)
+
+@app.route('/queue_page')
+def queue_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    queue_data = data._get_queue_data()
+    return render_template('queue.html', timestamp_list=timestamp_list, queue_data=queue_data)
+
+@app.route('/serial_page')
+def serial_page():
+    data = import_data()
+    timestamp_list = data._get_timestamp_list()
+    serial_data = data._get_serial_data()
+    return render_template('serial.html', timestamp_list=timestamp_list, serial_data=serial_data)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

@@ -1,0 +1,208 @@
+{% extends "index_template.html" %}
+{% block body %}
+<div class="container" id="io-tps" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("io-tps"));
+    var option = {
+          title: {
+              text: "io tps",
+              subtext: "单位：",
+              left: 'left',
+          },
+          legend: {
+              data: ['tps'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [
+              {
+              data: JSON.parse('{{ io_data["tps"]|tojson }}'),
+              name: 'tps',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top',
+                  }
+              }},
+      ],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="io-rw-tps" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("io-rw-tps"));
+    var option = {
+          title: {
+              text: "io read/write Tps",
+              subtext: "单位: 次/s",
+              left: 'left',
+          },
+          legend: {
+              data: ['rtps','wtps'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [
+              {
+              data: JSON.parse('{{ io_data["rtps"]|tojson }}'),
+              name: 'rtps',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top',
+                  }
+              }},
+              {
+              data: JSON.parse('{{ io_data["wtps"]|tojson }}'),
+              name: 'wtps',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top',
+                  }
+              }},
+      ],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="io-readwrite-data" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("io-readwrite-data"));
+    var option = {
+          title: {
+              text: "io read/write data",
+              subtext: "单位: KB/s",
+              left: 'left',
+          },
+          legend: {
+              data: ['bread','bwrtn'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [
+              {
+              data: JSON.parse('{{ io_data["bread"]|tojson }}'),
+              name: 'bread',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top',
+                  }
+              }},
+              {
+              data: JSON.parse('{{ io_data["bwrtn"]|tojson }}'),
+              name: 'bwrtn',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top',
+                  }
+              }},
+      ],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+
+<div class="container" id="io-discard" style="align-items: center; width: 1800px; height: 400px; "></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("io-discard"));
+    var option = {
+          title: {
+              text: "io discard",
+              subtext: "单位: 次/s|KB/s",
+              left: 'left',
+          },
+          legend: {
+              data: ['dtps','bdscd'],
+          },
+          xAxis: {
+              type: 'category',
+              data: JSON.parse('{{ timestamp_list|tojson }}')
+          },
+          yAxis: {
+              type: 'value',
+              },
+          series: [
+              {
+              data: JSON.parse('{{ io_data["dtps"]|tojson }}'),
+              name: 'dtps',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top',
+                  }
+              }},
+              {
+              data: JSON.parse('{{ io_data["bdscd"]|tojson }}'),
+              name: 'bdscd',
+              type: 'line',
+              label: {
+                  normal: {
+                      show: true,
+                      position: 'top',
+                  }
+              }},
+      ],
+          dataZoom: [{
+              type: 'slider',
+              start: 0,
+              end: 100
+          }, {
+              type: 'inside',
+              start: 0,
+              end: 100
+          }],
+      };
+      myChart.setOption(option);
+    </script>
+{% endblock %}

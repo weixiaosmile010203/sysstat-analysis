@@ -128,8 +128,16 @@ class SysStatAnalyzer:
         io_data = {}
         for statistic in self.data['sysstat']['hosts'][0]['statistics']:
             io = statistic['io']
-            for i in io:
-                io_data.setdefault(i, []).append(io[i])
+            # print(io)
+            # for i in io:
+            #     io_data.setdefault(i, []).append(io[i])
+            io_data.setdefault('tps', []).append(io['tps'])
+            io_data.setdefault('rtps', []).append(io['io-reads']['rtps'])
+            io_data.setdefault('wtps', []).append(io['io-writes']['wtps'])
+            io_data.setdefault('bread', []).append(io['io-reads']['bread'])
+            io_data.setdefault('bwrtn', []).append(io['io-writes']['bwrtn'])
+            io_data.setdefault('dtps', []).append(io.get('io-discard', {}).get('dtps', 0))
+            io_data.setdefault('bdscd', []).append(io.get('io-discard', {}).get('bdscd', 0))
         return io_data
     
     def _get_hugepage_data(self):
@@ -184,3 +192,10 @@ class SysStatAnalyzer:
 
     def render_page(self, output_file="output.html"):
         self.page.render(output_file)
+
+
+
+
+if __name__ == '__main__':
+    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
+    data._get_io_data()
