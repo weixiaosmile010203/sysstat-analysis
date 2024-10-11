@@ -11,18 +11,19 @@ app = Flask(__name__)
 
 
 def import_data():
-    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
+    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), '151_sa11.json'))
     return data
 
-
-
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/cpu_page')
 def cpu_page():
     data = import_data()
     timestamp_list = data._get_timestamp_list()
     cpu_data = data._get_cpu_data()
-    print(cpu_data)
+    # print(cpu_data)
     return render_template('cpu.html', timestamp_list=timestamp_list, cpu_data=cpu_data)
 
 @app.route('/mem_page')
@@ -75,7 +76,7 @@ def disk_page():
     return render_template('disks.html', timestamp_list=timestamp_list, disk_data=disk_data)
 
 @app.route('/pcsw_page')
-def home():
+def pcsw_page():
     data = import_data()
     timestamp_list = data._get_timestamp_list()
     pcsw_data = data._get_pcsw_data()
