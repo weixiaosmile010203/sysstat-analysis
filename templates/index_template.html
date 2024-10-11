@@ -11,15 +11,27 @@
 <body>
     <main>
     <div class="container">
-        <header class="d-flex justify-content-center py-3">
-          <ul class="nav nav-tabs">
-            <li class="nav-item"><a id="homelink" href="{{ url_for('home') }}" class="nav-link">Home</a></li>
-            <li class="nav-item"><a id="cpulink" href="{{ url_for('cpu_page') }}" class="nav-link">CPU</a></li>
-            <li class="nav-item"><a id="memlink" href="{{ url_for('mem_page') }}" class="nav-link">内存</a></li>
-            <li class="nav-item"><a id="netlink" href="{{ url_for('network_page') }}" class="nav-link">网络</a></li>
-            <li class="nav-item"><a id="disklink" href="{{ url_for('disk_page') }}" class="nav-link">磁盘</a></li>
-          </ul>
-        </header>
+      <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+        <li class="nav-item"><a id="homelink" href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" aria-current="page">主页</a></li>
+        <li class="nav-item"><a id="cpulink" href="{{ url_for('cpu_page') }}" class="nav-link {% if request.endpoint == 'cpu_page' %}active{% endif %}">CPU</a></li>
+        <li class="nav-item"><a id="memlink" href="{{ url_for('mem_page') }}" class="nav-link {% if request.endpoint == 'mem_page' %}active{% endif %}">内存</a></li>
+        <li class="nav-item"><a id="netlink" href="{{ url_for('network_page') }}" class="nav-link {% if request.endpoint == 'network_page' %}active{% endif %}">网络</a></li>
+        <li class="nav-item"><a id="disklink" href="{{ url_for('disk_page') }}" class="nav-link {% if request.endpoint == 'disk_page' %}active{% endif %}">磁盘</a></li>
+        <li class="nav-item"><a id="nfslink" href="{{ url_for('nfs_page') }}" class="nav-link {% if request.endpoint == 'nfs_page' %}active{% endif %}">NFS</a></li>
+        <li class="nav-item"><a id="nfsdlink" href="{{ url_for('nfsd_page') }}" class="nav-link {% if request.endpoint == 'nfsd_page' %}active{% endif %}">NFSD</a></li>
+        <li class="nav-item"><a id="socketlink" href="{{ url_for('socket_page') }}" class="nav-link {% if request.endpoint == 'socket_page' %}active{% endif %}">Socket</a></li>
+        <li class="nav-item"><a id="softnetlink" href="{{ url_for('softnet_page') }}" class="nav-link {% if request.endpoint == 'softnet_page' %}active{% endif %}">Softnet</a></li>
+        <li class="nav-item"><a id="pcswlink" href="{{ url_for('pcsw_page') }}" class="nav-link {% if request.endpoint == 'pcsw_page' %}active{% endif %}">PCSW</a></li>
+        <li class="nav-item"><a id="swaplink" href="{{ url_for('swap_page') }}" class="nav-link {% if request.endpoint == 'swap_page' %}active{% endif %}">Swap</a></li>
+        <li class="nav-item"><a id="paginglink" href="{{ url_for('paging_page') }}" class="nav-link {% if request.endpoint == 'paging_page' %}active{% endif %}">Paging</a></li>
+        <li class="nav-item"><a id="iolink" href="{{ url_for('io_page') }}" class="nav-link {% if request.endpoint == 'io_page' %}active{% endif %}">IO</a></li>
+        <li class="nav-item"><a id="hugelink" href="{{ url_for('huge_page') }}" class="nav-link {% if request.endpoint == 'huge_page' %}active{% endif %}">Huge</a></li>
+        <li class="nav-item"><a id="kernellink" href="{{ url_for('kernel_page') }}" class="nav-link {% if request.endpoint == 'kernel_page' %}active{% endif %}">Kernel</a></li>
+        <li class="nav-item"><a id="queuelink" href="{{ url_for('queue_page') }}" class="nav-link {% if request.endpoint == 'queue_page' %}active{% endif %}">Queue</a></li>
+        <li class="nav-item"><a id="seriallink" href="{{ url_for('serial_page') }}" class="nav-link {% if request.endpoint == 'serial_page' %}active{% endif %}">Serial</a></li>
+        </ul>
+      </header>
       </div>
   {% block body %}{% endblock %}
         </main>

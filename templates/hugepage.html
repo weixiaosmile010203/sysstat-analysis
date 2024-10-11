@@ -1,156 +1,155 @@
 {% extends "index_template.html" %}
 {% block body %}
-{{ huge_data }}
 <div class="container" id="huge-use" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('huge-use'));
-    var option = {
-          title: {
-              text: "hugepage使用情况",
-              subtext: "单位：KB",
-              left: 'left',
-          },
-          legend: {
-              data: ['hugfree', 'hugused'],
-          },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ huge_data["hugfree"]|tojson }}'),
-              name: 'hugfree',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{  huge_data["hugused"]|tojson }}'),
-              name: 'hugused',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              }
-          }],
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('huge-use'));
+        var option = {
+                    title: {
+                            text: "hugepage使用情况",
+                            subtext: "单位：KB",
+                            left: 'left',
+                    },
+                    legend: {
+                            data: ['hugfree', 'hugused'],
+                    },
+                    xAxis: {
+                            type: 'category',
+                            data: JSON.parse('{{ timestamp_list|tojson }}')
+                    },
+                    yAxis: {
+                            type: 'value',
+                            },
+                    series: [{
+                            data: JSON.parse('{{ huge_data["hugfree"]|default(0)|tojson }}'),
+                            name: 'hugfree',
+                            type: 'line',
+                            label: {
+                                    normal: {
+                                            show: true,
+                                            position: 'top'
+                                    }
+                            }
+                    },
+                    {
+                            data: JSON.parse('{{ huge_data["hugused"]|default(0)|tojson }}'),
+                            name: 'hugused',
+                            type: 'line',
+                            label: {
+                                    normal: {
+                                            show: true,
+                                            position: 'top'
+                                    }
+                            }
+                    }],
+                    dataZoom: [{
+                            type: 'slider',
+                            start: 0,
+                            end: 100
+                    }, {
+                            type: 'inside',
+                            start: 0,
+                            end: 100
+                    }],
+            };
+            myChart.setOption(option);
+        </script>
 
 <div class="container" id="hugused-percent" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('hugused-percent'));
-    var option = {
-          title: {
-              text: "hugepage使用率",
-              subtext: "单位：%",
-              left: 'left',
-          },
-          legend: {
-              data: ['hugused-percent'],
-          },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ huge_data["hugused-percent"]|tojson }}'),
-              name: 'hugused-percent',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              }
-          },],
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('hugused-percent'));
+        var option = {
+                    title: {
+                            text: "hugepage使用率",
+                            subtext: "单位：%",
+                            left: 'left',
+                    },
+                    legend: {
+                            data: ['hugused-percent'],
+                    },
+                    xAxis: {
+                            type: 'category',
+                            data: JSON.parse('{{ timestamp_list|tojson }}')
+                    },
+                    yAxis: {
+                            type: 'value',
+                            },
+                    series: [{
+                            data: JSON.parse('{{ huge_data["hugused-percent"]|default(0)|tojson }}'),
+                            name: 'hugused-percent',
+                            type: 'line',
+                            label: {
+                                    normal: {
+                                            show: true,
+                                            position: 'top'
+                                    }
+                            }
+                    },],
+                    dataZoom: [{
+                            type: 'slider',
+                            start: 0,
+                            end: 100
+                    }, {
+                            type: 'inside',
+                            start: 0,
+                            end: 100
+                    }],
+            };
+            myChart.setOption(option);
+        </script>
 
 <div class="container" id="hugrsvd" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('hugrsvd'));
-    var option = {
-          title: {
-              text: "hugepage保留情况",
-              subtext: "单位：KB",
-              left: 'left',
-          },
-          legend: {
-              data: ['hugrsvd', 'hugsurp'],
-          },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [
-            {
-              data: JSON.parse('{{ huge_data["hugsurp"]|tojson }}'),
-              name: 'hugsurp',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{ huge_data["hugsurp"]|tojson }}'),
-              name: 'hugsurp',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              }
-          },
-        ],
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('hugrsvd'));
+        var option = {
+                    title: {
+                            text: "hugepage保留情况",
+                            subtext: "单位：KB",
+                            left: 'left',
+                    },
+                    legend: {
+                            data: ['hugrsvd', 'hugsurp'],
+                    },
+                    xAxis: {
+                            type: 'category',
+                            data: JSON.parse('{{ timestamp_list|tojson }}')
+                    },
+                    yAxis: {
+                            type: 'value',
+                            },
+                    series: [
+                        {
+                            data: JSON.parse('{{ huge_data["hugrsvd"]|default(0)|tojson }}'),
+                            name: 'hugrsvd',
+                            type: 'line',
+                            label: {
+                                    normal: {
+                                            show: true,
+                                            position: 'top'
+                                    }
+                            }
+                    },
+                    {
+                            data: JSON.parse('{{ huge_data["hugsurp"]|default(0)|tojson }}'),
+                            name: 'hugsurp',
+                            type: 'line',
+                            label: {
+                                    normal: {
+                                            show: true,
+                                            position: 'top'
+                                    }
+                            }
+                    },
+                ],
+                    dataZoom: [{
+                            type: 'slider',
+                            start: 0,
+                            end: 100
+                    }, {
+                            type: 'inside',
+                            start: 0,
+                            end: 100
+                    }],
+            };
+            myChart.setOption(option);
+        </script>
 {% endblock %}

@@ -11,8 +11,17 @@
             subtext: "单位：%",
             left: 'left',
         },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
         legend: {
-            data: JSON.parse('{{ keys_list|tojson}}'),
+            data: JSON.parse('{{ keys_list|tojson }}'),
         },
         xAxis: {
             type: 'category',
@@ -22,20 +31,32 @@
             type: 'value',
             },
         series: [
-            {% for i in cpu_data['all'] %}
-            {
+        {% for i in cpu_data['all'] %}
+        {
             data:{{ cpu_data[cpu][i] }},
             name: '{{ i }}',
             type: 'line',
+            stack: '总量',
+            areaStyle: {},
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top'
                 }
-            }
+            },
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ],
+                label: {
+                    formatter: '{c}',
+                    position: 'top'
+                    }
+            },
         },
         {% endfor %}
-    ],
+        ],
         dataZoom: [{
             type: 'slider',
             start: 0,

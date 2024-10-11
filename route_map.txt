@@ -1,0 +1,17 @@
+/ = index
+/cpu_page = cpu数据
+/mem_page = 内存数据
+/network_page = 网络数据
+/nfs_page = nfs客户端数据
+/nfsd_page = nfs服务端数据
+/socket_page = socket数据
+/softnet_page = softnet数据
+/disk_page = disk数据
+/pcsw_page = pcsw数据
+/swap_page = swap数据
+/paging_page = paging数据
+/io_page = io数据
+/huge_page = huge数据
+/kernel_page = kernel数据
+/queue_page = queue数据
+/serial_page = serial数据

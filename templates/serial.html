@@ -1,15 +1,12 @@
 {% extends "index_template.html" %}
 {% block body %}
-{{ serial_data }}
 {% for serial in serial_data %}
-{{ serial }}
-
 <div class="container" id="{{ serial }}-data" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
   var myChart = echarts.init(document.getElementById("{{ serial }}-data"));
   var option = {
         title: {
-            text: "串口数据传输",
+            text: "串口({{ serial }})数据传输",
             subtext: "单位：bytes",
             left: 'left',
         },
@@ -63,7 +60,7 @@
   var myChart = echarts.init(document.getElementById("{{ serial }}-error"));
   var option = {
         title: {
-            text: "串口错误数量",
+            text: "串口({{ serial }})错误数量",
             subtext: "单位：个",
             left: 'left',
         },

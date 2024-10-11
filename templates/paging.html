@@ -1,7 +1,7 @@
 {% extends "index_template.html" %}
 {% block body %}
 <div class="container" id="page_fault" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
+    <script type="text/javascript"></script>
     var myChart = echarts.init(document.getElementById('page_fault'));
     var option = {
           title: {
@@ -20,7 +20,7 @@
               type: 'value',
               },
           series: [{
-              data: JSON.parse('{{ paging_data["fault"]|tojson }}'),
+              data: JSON.parse('{{ paging_data["fault"]|default(0)|tojson }}'),
               name: 'fault',
               type: 'line',
               label: {
@@ -31,7 +31,7 @@
               }
           },
           {
-              data: JSON.parse('{{  paging_data["majflt"]|tojson }}'),
+              data: JSON.parse('{{  paging_data["majflt"]|default(0)|tojson }}'),
               name: 'majflt',
               type: 'line',
               label: {
@@ -74,7 +74,7 @@
               type: 'value',
               },
           series: [{
-              data: JSON.parse('{{ paging_data["pgpgin"]|tojson }}'),
+              data: JSON.parse('{{ paging_data["pgpgin"]|default(0)|tojson }}'),
               name: 'pgpgin',
               type: 'line',
               label: {
@@ -85,7 +85,7 @@
               }
           },
           {
-              data: JSON.parse('{{  paging_data["pgpgout"]|tojson }}'),
+              data: JSON.parse('{{  paging_data["pgpgout"]|default(0)|tojson }}'),
               name: 'pgpgout',
               type: 'line',
               label: {
@@ -96,7 +96,7 @@
               }
           },
           {
-              data: JSON.parse('{{  paging_data["pgsteal"]|tojson }}'),
+              data: JSON.parse('{{  paging_data["pgsteal"]|default(0)|tojson }}'),
               name: 'pgsteal',
               type: 'line',
               label: {
@@ -140,7 +140,7 @@
               type: 'value',
               },
           series: [{
-              data: JSON.parse('{{ paging_data["pgfree"]|tojson }}'),
+              data: JSON.parse('{{ paging_data["pgfree"]|default(0)|tojson }}'),
               name: 'pgfree',
               type: 'line',
               label: {
@@ -151,7 +151,7 @@
               }
           },
           {
-              data: JSON.parse('{{  paging_data["pgscank"]|tojson }}'),
+              data: JSON.parse('{{  paging_data["pgscank"]|default(0)|tojson }}'),
               name: 'pgscank',
               type: 'line',
               label: {
@@ -162,7 +162,7 @@
               }
           },
           {
-              data: JSON.parse('{{  paging_data["pgscand"]|tojson }}'),
+              data: JSON.parse('{{  paging_data["pgscand"]|default(0)|tojson }}'),
               name: 'pgscand',
               type: 'line',
               label: {
@@ -206,7 +206,7 @@
               type: 'value',
               },
           series: [{
-              data: JSON.parse('{{ paging_data["pgsteal"]|tojson }}'),
+              data: JSON.parse('{{ paging_data["pgsteal"]|default(0)|tojson }}'),
               name: 'pgsteal',
               type: 'line',
               label: {
@@ -249,7 +249,7 @@
               type: 'value',
               },
           series: [{
-              data: JSON.parse('{{ paging_data["vmeff-percent"]|tojson }}'),
+              data: JSON.parse('{{ paging_data["vmeff-percent"]|default(0)|tojson }}'),
               name: 'vmeff-percent',
               type: 'line',
               label: {
