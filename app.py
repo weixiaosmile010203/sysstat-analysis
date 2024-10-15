@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import url_for
 from flask import request, render_template
 from pyecharts import options as opts

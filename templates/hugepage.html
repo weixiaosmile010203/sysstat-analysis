@@ -12,6 +12,24 @@
                     legend: {
                             data: ['hugfree', 'hugused'],
                     },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                    },
                     xAxis: {
                             type: 'category',
                             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -25,7 +43,7 @@
                             type: 'line',
                             label: {
                                     normal: {
-                                            show: true,
+                                            show: false,
                                             position: 'top'
                                     }
                             }
@@ -36,7 +54,7 @@
                             type: 'line',
                             label: {
                                     normal: {
-                                            show: true,
+                                            show: false,
                                             position: 'top'
                                     }
                             }
@@ -66,20 +84,40 @@
                     legend: {
                             data: ['hugused-percent'],
                     },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                    },
                     xAxis: {
                             type: 'category',
                             data: JSON.parse('{{ timestamp_list|tojson }}')
                     },
                     yAxis: {
                             type: 'value',
+                            max: 100,
                             },
                     series: [{
                             data: JSON.parse('{{ huge_data["hugused-percent"]|default(0)|tojson }}'),
                             name: 'hugused-percent',
                             type: 'line',
+                            areaStyle: {},
                             label: {
                                     normal: {
-                                            show: true,
+                                            show: false,
                                             position: 'top'
                                     }
                             }
@@ -109,6 +147,15 @@
                     legend: {
                             data: ['hugrsvd', 'hugsurp'],
                     },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                    },
                     xAxis: {
                             type: 'category',
                             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -123,7 +170,7 @@
                             type: 'line',
                             label: {
                                     normal: {
-                                            show: true,
+                                            show: false,
                                             position: 'top'
                                     }
                             }
@@ -134,7 +181,7 @@
                             type: 'line',
                             label: {
                                     normal: {
-                                            show: true,
+                                            show: false,
                                             position: 'top'
                                     }
                             }

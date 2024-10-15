@@ -13,6 +13,15 @@
           legend: {
               data: ['file-nr', 'inode-nr'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -26,7 +35,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -37,7 +46,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -67,6 +76,15 @@
           legend: {
               data: ['dentunusd'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -80,7 +98,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -110,6 +128,15 @@
           legend: {
               data: ['pty'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -124,7 +151,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }

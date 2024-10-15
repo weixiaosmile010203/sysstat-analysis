@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajax Demo</title>
+    <script src="../static/jquery/jquery.min.js"></script>
+</head>
+<body>
+    <button id="btn">点击获取数据</button>
+    <div id="result"></div>
+    <script>
+        $(document).ready(function(){
+            $("#btn").click(function(){
+                $.ajax({
+                    url: '/test_page', // Flask 路由
+                    type: 'GET',
+                    success: function(response) {
+                        $('#result').text(response.data);
+                    }
+                });
+            });
+        });
+    </script>
+    <p>(response.data)</p>
+</body>
+</html>

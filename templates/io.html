@@ -12,6 +12,15 @@
           legend: {
               data: ['tps'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -26,7 +35,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top',
                   }
               }},
@@ -56,6 +65,15 @@
           legend: {
               data: ['rtps','wtps'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -70,7 +88,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top',
                   }
               }},
@@ -80,7 +98,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top',
                   }
               }},
@@ -110,6 +128,15 @@
           legend: {
               data: ['bread','bwrtn'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -124,7 +151,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top',
                   }
               }},
@@ -134,7 +161,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top',
                   }
               }},
@@ -164,6 +191,15 @@
           legend: {
               data: ['dtps','bdscd'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -178,7 +214,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top',
                   }
               }},
@@ -188,7 +224,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top',
                   }
               }},

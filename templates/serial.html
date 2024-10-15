@@ -13,6 +13,15 @@
         legend: {
             data: ['接收字符数','发送字符数'],
         },
+        tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -27,7 +36,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -37,7 +46,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -67,6 +76,15 @@
         legend: {
             data: ['framerr','prtyerr','brk','ovrun'],
         },
+        tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -81,7 +99,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -91,7 +109,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -101,7 +119,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -111,7 +129,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},

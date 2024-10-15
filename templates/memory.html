@@ -2,271 +2,319 @@
 {% block body %}
 <div class="container" id="mem_user_percent" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById('mem_user_percent'));
-  var option = {
-        title: {
-            text: "内存使用率",
-            subtext: "单位：%",
-            left: 'left',
-        },
-        legend: {
-            data: ['memused-percent'],
-        },
-        xAxis: {
-            type: 'category',
-            data: JSON.parse('{{ timestamp_list|tojson }}')
-        },
-        yAxis: {
-            type: 'value',
-            },
-        series: [{
-            data: {{ mem_data['memused-percent'] }},
-            name: 'memused-percent',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        }],
-        dataZoom: [{
-            type: 'slider',
-            start: 0,
-            end: 100
-        }, {
-            type: 'inside',
-            start: 0,
-            end: 100
-        }],
-    };
-    myChart.setOption(option);
+    var myChart = echarts.init(document.getElementById('mem_user_percent'));
+    var option = {
+                title: {
+                        text: "内存使用率",
+                        subtext: "单位：%",
+                        left: 'left',
+                },
+                legend: {
+                        data: ['memused-percent'],
+                },
+                tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
+                xAxis: {
+                        type: 'category',
+                        data: JSON.parse('{{ timestamp_list|tojson }}')
+                },
+                yAxis: {
+                        type: 'value',
+                        max: 100,
+                        },
+                series: [{
+                        data: JSON.parse("{{ mem_data['memused-percent']|tojson }}"),
+                        name: 'memused-percent',
+                        type: 'line',
+                        areaStyle: {},
+                        label: {
+                                normal: {
+                                show: false,
+                                position: 'top',
+                                },
+                        },
+                }],
+                dataZoom: [{
+                        type: 'slider',
+                        start: 0,
+                        end: 100
+                }, {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                }],
+        };
+        myChart.setOption(option);
 </script>
 <div class="container" id="mem_use" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById('mem_use'));
-  var option = {
-        title: {
-            text: "内存使用量",
-            subtext: "单位：Kb",
-            left: 'left',
-        },
-        legend: {
-            data: ['memused','avail','memfree'],
-        },
-        xAxis: {
-            type: 'category',
-            data: JSON.parse('{{ timestamp_list|tojson }}')
-        },
-        yAxis: {
-            type: 'value',
-            },
-        series: [{
-            data: {{ mem_data['memused'] }},
-            name: 'memused',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        },
-        {
-            data: {{ mem_data['avail'] }},
-            name: 'avail',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        },
-        {
-            data: {{ mem_data['memfree'] }},
-            name: 'memfree',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        }],
-        dataZoom: [{
-            type: 'slider',
-            start: 0,
-            end: 100
-        }, {
-            type: 'inside',
-            start: 0,
-            end: 100
-        }],
-    };
-    myChart.setOption(option);
+    var myChart = echarts.init(document.getElementById('mem_use'));
+    var option = {
+                title: {
+                        text: "内存使用量",
+                        subtext: "单位：Kb",
+                        left: 'left',
+                },
+                legend: {
+                        data: ['memused','avail','memfree'],
+                },
+                tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
+                xAxis: {
+                        type: 'category',
+                        data: JSON.parse('{{ timestamp_list|tojson }}')
+                },
+                yAxis: {
+                        type: 'value',
+                        },
+                series: [{
+                        data: JSON.parse("{{ mem_data['memused']|tojson }}"),
+                        name: 'memused',
+                        type: 'line',
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                },
+                {
+                        data: JSON.parse("{{ mem_data['avail']|tojson }}"),
+                        name: 'avail',
+                        type: 'line',
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                },
+                {
+                        data: JSON.parse("{{ mem_data['memfree']|tojson }}"),
+                        name: 'memfree',
+                        type: 'line',
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                }],
+                dataZoom: [{
+                        type: 'slider',
+                        start: 0,
+                        end: 100
+                }, {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                }],
+        };
+        myChart.setOption(option);
 </script>
 
 <div class="container" id="mem_cache" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById('mem_cache'));
-  var option = {
-        title: {
-            text: "缓存占有量",
-            subtext: "单位：Kb",
-            left: 'left',
-        },
-        legend: {
-            data: ['memused','buffers','cached'],
-        },
-        xAxis: {
-            type: 'category',
-            data: JSON.parse('{{ timestamp_list|tojson }}')
-        },
-        yAxis: {
-            type: 'value',
-            },
-        series: [{
-            data: {{ mem_data['memused'] }},
-            name: 'memused',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        },
-        {
-            data: {{ mem_data['buffers'] }},
-            name: 'buffers',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        },
-        {
-            data: {{ mem_data['cached'] }},
-            name: 'cached',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        }],
-        dataZoom: [{
-            type: 'slider',
-            start: 0,
-            end: 100
-        }, {
-            type: 'inside',
-            start: 0,
-            end: 100
-        }],
-    };
-    myChart.setOption(option);
+    var myChart = echarts.init(document.getElementById('mem_cache'));
+    var option = {
+                title: {
+                        text: "缓存占有量",
+                        subtext: "单位：Kb",
+                        left: 'left',
+                },
+                legend: {
+                        data: ['memused','buffers','cached'],
+                },
+                tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
+                xAxis: {
+                        type: 'category',
+                        data: JSON.parse('{{ timestamp_list|tojson }}')
+                },
+                yAxis: {
+                        type: 'value',
+                        },
+                series: [{
+                        data: JSON.parse("{{ mem_data['memused']|tojson }}"),
+                        name: 'memused',
+                        type: 'line',
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                },
+                {
+                        data: JSON.parse("{{ mem_data['buffers']|tojson }}"),
+                        name: 'buffers',
+                        type: 'line',
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                },
+                {
+                        data: JSON.parse("{{ mem_data['cached']|tojson }}"),
+                        name: 'cached',
+                        type: 'line',
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                }],
+                dataZoom: [{
+                        type: 'slider',
+                        start: 0,
+                        end: 100
+                }, {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                }],
+        };
+        myChart.setOption(option);
 </script>
 
 <div class="container" id="swpused-percent" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById('swpused-percent'));
-  var option = {
-        title: {
-            text: "swap使用率",
-            subtext: "单位：%",
-            left: 'left',
-        },
-        legend: {
-            data: ['swpused-percent'],
-        },
-        xAxis: {
-            type: 'category',
-            data: JSON.parse('{{ timestamp_list|tojson }}')
-        },
-        yAxis: {
-            type: 'value',
-            },
-        series: [{
-            data: {{ mem_data['swpused-percent'] }},
-            name: 'swpused-percent',
-            type: 'line',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'top'
-                }
-            }
-        }],
-        dataZoom: [{
-            type: 'slider',
-            start: 0,
-            end: 100
-        }, {
-            type: 'inside',
-            start: 0,
-            end: 100
-        }],
-    };
-    myChart.setOption(option);
+    var myChart = echarts.init(document.getElementById('swpused-percent'));
+    var option = {
+                title: {
+                        text: "swap使用率",
+                        subtext: "单位：%",
+                        left: 'left',
+                },
+                legend: {
+                        data: ['swpused-percent'],
+                },
+                tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
+                xAxis: {
+                        type: 'category',
+                        data: JSON.parse('{{ timestamp_list|tojson }}')
+                },
+                yAxis: {
+                        type: 'value',
+                        max: 100,
+                        },
+                series: [{
+                        data: JSON.parse("{{ mem_data['swpused-percent']|tojson }}"),
+                        name: 'swpused-percent',
+                        type: 'line',
+                        areaStyle: {},
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top',
+                                }
+                        }
+                }],
+                dataZoom: [{
+                        type: 'slider',
+                        start: 0,
+                        end: 100
+                }, {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                }],
+        };
+        myChart.setOption(option);
 </script>
 
 <div class="container" id="swpused" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('swpused'));
-    var option = {
-          title: {
-              text: "swap占有量",
-              subtext: "单位：Kb",
-              left: 'left',
-          },
-          legend: {
-              data: ['swpused','swpfree'],
-          },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: {{ mem_data['swpused'] }},
-              name: 'swpused',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: {{ mem_data['swpfree'] }},
-              name: 'swpfree',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              }
-          }],
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-  </script>
-
+        var myChart = echarts.init(document.getElementById('swpused'));
+        var option = {
+                    title: {
+                            text: "swap占有量",
+                            subtext: "单位：Kb",
+                            left: 'left',
+                    },
+                    legend: {
+                            data: ['swpused','swpfree'],
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
+                    xAxis: {
+                            type: 'category',
+                            data: JSON.parse('{{ timestamp_list|tojson }}')
+                    },
+                    yAxis: {
+                            type: 'value',
+                            },
+                    series: [{
+                            data: JSON.parse("{{ mem_data['swpused']|tojson }}"),
+                            name: 'swpused',
+                            type: 'line',
+                            label: {
+                                    normal: {
+                                            show: false,
+                                            position: 'top'
+                                    }
+                            }
+                    },
+                    {
+                            data: JSON.parse('{{ mem_data["swpfree"]|tojson }}'),
+                            name: 'swpfree',
+                            type: 'line',
+                            label: {
+                                    normal: {
+                                            show: false,
+                                            position: 'top'
+                                    }
+                            }
+                    }],
+                    dataZoom: [{
+                            type: 'slider',
+                            start: 0,
+                            end: 100
+                    }, {
+                            type: 'inside',
+                            start: 0,
+                            end: 100
+                    }],
+            };
+            myChart.setOption(option);
+    </script>
 {% endblock %}

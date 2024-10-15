@@ -22,6 +22,9 @@
         },
         legend: {
             data: JSON.parse('{{ keys_list|tojson }}'),
+            selected: {
+                'idle': false, // make the default not show
+            }
         },
         xAxis: {
             type: 'category',
@@ -29,6 +32,7 @@
         },
         yAxis: {
             type: 'value',
+            max: 100,
             },
         series: [
         {% for i in cpu_data['all'] %}
@@ -43,16 +47,6 @@
                     show: false,
                     position: 'top'
                 }
-            },
-            markPoint: {
-                data: [
-                    {type: 'max', name: '最大值'},
-                    {type: 'min', name: '最小值'}
-                ],
-                label: {
-                    formatter: '{c}',
-                    position: 'top'
-                    }
             },
         },
         {% endfor %}

@@ -13,21 +13,32 @@
         legend: {
             data: ['ifutil-percent'],
         },
+        tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
         },
         yAxis: {
             type: 'value',
+            max: 100,
             },
         series: [
             {
             data: JSON.parse('{{ network_data[iface]["ifutil-percent"]|tojson }}'),
             name: 'ifutil-percent',
             type: 'line',
+            areaStyle: {},
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -57,6 +68,15 @@
         legend: {
             data: ['rxpck','txpck','rxerr','txerr','coll','txdrop','rxdrop','txcarr','rxfram','rxfifo','txfifo'],
         },
+        tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -71,7 +91,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -81,7 +101,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -91,7 +111,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -101,7 +121,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -111,7 +131,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -121,7 +141,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -131,7 +151,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -141,7 +161,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -151,7 +171,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -161,7 +181,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -171,7 +191,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -201,6 +221,15 @@
         legend: {
             data: ['txkB','rxkB'],
         },
+        tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -215,7 +244,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -225,7 +254,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -255,6 +284,15 @@
         legend: {
             data: ['txcmp','rxcmp'],
         },
+        tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -269,7 +307,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -279,7 +317,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},
@@ -309,6 +347,15 @@
         legend: {
             data: ['rxmcst'],
         },
+        tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                                type: 'cross',
+                                label: {
+                                        backgroundColor: '#6a7985'
+                                }
+                        }
+                },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -323,7 +370,7 @@
             type: 'line',
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'top',
                 }
             }},

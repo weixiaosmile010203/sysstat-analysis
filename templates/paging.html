@@ -1,7 +1,7 @@
 {% extends "index_template.html" %}
 {% block body %}
 <div class="container" id="page_fault" style="align-items: center; width: 1800px; height: 400px; "></div>
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
     var myChart = echarts.init(document.getElementById('page_fault'));
     var option = {
           title: {
@@ -12,6 +12,15 @@
           legend: {
               data: ['fault', 'majflt'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -25,7 +34,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -36,7 +45,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -66,6 +75,15 @@
           legend: {
               data: ['pgpgin', 'pgpgout','pgsteal'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -79,7 +97,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -90,7 +108,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -101,7 +119,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -132,6 +150,15 @@
           legend: {
               data: ['pgfree', 'pgscank','pgscand'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -145,7 +172,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -156,7 +183,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -167,7 +194,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -198,6 +225,15 @@
           legend: {
               data: ['pgsteal',],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -211,7 +247,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
@@ -241,6 +277,15 @@
           legend: {
               data: ['vmeff-percent'],
           },
+          tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'cross',
+                                label: {
+                                backgroundColor: '#6a7985'
+                                }
+                        }
+                },
           xAxis: {
               type: 'category',
               data: JSON.parse('{{ timestamp_list|tojson }}')
@@ -254,7 +299,7 @@
               type: 'line',
               label: {
                   normal: {
-                      show: true,
+                      show: false,
                       position: 'top'
                   }
               }
