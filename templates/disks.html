@@ -3,8 +3,8 @@
 {% for disk in disk_data %}
 <div class="container" id="io-{{ disk }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById("io-{{ disk }}"));
-    var option = {
+        var myChart = echarts.init(document.getElementById("io-{{ disk }}"));
+        var option = {
                 title: {
                         text: "I/O 操作频率({{ disk }})",
                         subtext: "单位：次/秒",
@@ -16,9 +16,9 @@
                 tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                        type: 'cross',
+                                type: 'cross',
                                 label: {
-                                backgroundColor: '#6a7985'
+                                        backgroundColor: '#6a7985'
                                 }
                         }
                 },
@@ -28,39 +28,48 @@
                 },
                 yAxis: {
                         type: 'value',
-                        },
+                },
                 series: [
                         {
-                        data: JSON.parse('{{ disk_data[disk]["tps"]|default(0)|tojson }}'),
-                        name: 'tps',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["tps"]|default(0)|tojson }}'),
+                                name: 'tps',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
+                        },
                         {
-                        data: JSON.parse('{{ disk_data[disk]["rd_sec"]|default(0)|tojson }}'),
-                        name: 'rd_sec',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["rd_sec"]|default(0)|tojson }}'),
+                                name: 'rd_sec',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
+                        },
                         {
-                        data: JSON.parse('{{ disk_data[disk]["wr_sec"]|default(0)|tojson }}'),
-                        name: 'wr_sec',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["wr_sec"]|default(0)|tojson }}'),
+                                name: 'wr_sec',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
-        ],
+                        },
+                ],
                 dataZoom: [{
                         type: 'slider',
                         start: 0,
@@ -72,12 +81,12 @@
                 }],
         };
         myChart.setOption(option);
-    </script>
+</script>
 
 <div class="container" id="data-{{ disk }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById("data-{{ disk }}"));
-    var option = {
+        var myChart = echarts.init(document.getElementById("data-{{ disk }}"));
+        var option = {
                 title: {
                         text: "数据量({{ disk }})",
                         subtext: "单位：Kb/秒",
@@ -89,9 +98,9 @@
                 tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                        type: 'cross',
+                                type: 'cross',
                                 label: {
-                                backgroundColor: '#6a7985'
+                                        backgroundColor: '#6a7985'
                                 }
                         }
                 },
@@ -101,39 +110,48 @@
                 },
                 yAxis: {
                         type: 'value',
-                        },
+                },
                 series: [
                         {
-                        data: JSON.parse('{{ disk_data[disk]["rkB"]|default(0)|tojson }}'),
-                        name: 'rkB',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["rkB"]|default(0)|tojson }}'),
+                                name: 'rkB',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
+                        },
                         {
-                        data: JSON.parse('{{ disk_data[disk]["wkB"]|default(0)|tojson }}'),
-                        name: 'wkB',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["wkB"]|default(0)|tojson }}'),
+                                name: 'wkB',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
+                        },
                         {
-                        data: JSON.parse('{{ disk_data[disk]["dkB"]|default(0)|tojson }}'),
-                        name: 'dkB',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["dkB"]|default(0)|tojson }}'),
+                                name: 'dkB',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
-        ],
+                        },
+                ],
                 dataZoom: [{
                         type: 'slider',
                         start: 0,
@@ -145,12 +163,12 @@
                 }],
         };
         myChart.setOption(option);
-    </script>
+</script>
 
 <div class="container" id="queue-{{ disk }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById("queue-{{ disk }}"));
-    var option = {
+        var myChart = echarts.init(document.getElementById("queue-{{ disk }}"));
+        var option = {
                 title: {
                         text: "I/O 请求队列({{ disk }})",
                         subtext: "单位：Kb/秒",
@@ -162,9 +180,9 @@
                 tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                        type: 'cross',
+                                type: 'cross',
                                 label: {
-                                backgroundColor: '#6a7985'
+                                        backgroundColor: '#6a7985'
                                 }
                         }
                 },
@@ -174,29 +192,35 @@
                 },
                 yAxis: {
                         type: 'value',
-                        },
+                },
                 series: [
                         {
-                        data: JSON.parse('{{ disk_data[disk]["avgqu-sz"]|default(0)|tojson }}'),
-                        name: 'avgqu-sz',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["avgqu-sz"]|default(0)|tojson }}'),
+                                name: 'avgqu-sz',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
+                        },
                         {
-                        data: JSON.parse('{{ disk_data[disk]["aqu-sz"]|default(0)|tojson }}'),
-                        name: 'aqu-sz',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["aqu-sz"]|default(0)|tojson }}'),
+                                name: 'aqu-sz',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
-        ],
+                        },
+                ],
                 dataZoom: [{
                         type: 'slider',
                         start: 0,
@@ -208,12 +232,12 @@
                 }],
         };
         myChart.setOption(option);
-    </script>
+</script>
 
 <div class="container" id="usage-{{ disk }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById("usage-{{ disk }}"));
-    var option = {
+        var myChart = echarts.init(document.getElementById("usage-{{ disk }}"));
+        var option = {
                 title: {
                         text: "繁忙度|平均等待时间({{ disk }})",
                         subtext: "单位：%|毫秒",
@@ -225,9 +249,9 @@
                 tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                        type: 'cross',
+                                type: 'cross',
                                 label: {
-                                backgroundColor: '#6a7985'
+                                        backgroundColor: '#6a7985'
                                 }
                         }
                 },
@@ -237,30 +261,36 @@
                 },
                 yAxis: {
                         type: 'value',
-                        },
+                },
                 series: [
                         {
-                        data: JSON.parse('{{ disk_data[disk]["await"]|default(0)|tojson }}'),
-                        name: 'await',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
+                                data: JSON.parse('{{ disk_data[disk]["await"]|default(0)|tojson }}'),
+                                name: 'await',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                        }
                                 }
-                        }},
+                        },
                         {
-                        data: JSON.parse('{{ disk_data[disk]["util-percent"]|default(0)|tojson }}'),
-                        name: 'util-percent',
-                        type: 'line',
-                        label: {
-                                normal: {
-                                        show: false,
-                                        position: 'top',
-                                        formatter: '{c}%',
+                                data: JSON.parse('{{ disk_data[disk]["util-percent"]|default(0)|tojson }}'),
+                                name: 'util-percent',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top',
+                                                formatter: '{c}%',
+                                        }
                                 }
-                        }},
-        ],
+                        },
+                ],
                 dataZoom: [{
                         type: 'slider',
                         start: 0,
@@ -272,6 +302,6 @@
                 }],
         };
         myChart.setOption(option);
-    </script>
+</script>
 {% endfor %}
 {% endblock %}

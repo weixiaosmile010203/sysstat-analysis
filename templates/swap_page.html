@@ -1,65 +1,69 @@
 {% extends "index_template.html" %}
 {% block body %}
 <div class="container" id="swap_page_char" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
+<script type="text/javascript">
     var myChart = echarts.init(document.getElementById('swap_page_char'));
     var option = {
-          title: {
-              text: "swap in/out 次数",
-              subtext: "单位：次",
-              left: 'left',
-          },
-          legend: {
-              data: ['pswpin', 'pswpout'],
-          },
-          tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ swap_data["pswpin"]|tojson }}'),
-              name: 'pswpin',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{  swap_data["pswpout"]|tojson }}'),
-              name: 'pswpout',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          }],
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+        title: {
+            text: "swap in/out 次数",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['pswpin', 'pswpout'],
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [{
+            data: JSON.parse('{{ swap_data["pswpin"]|tojson }}'),
+            name: 'pswpin',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },
+        {
+            data: JSON.parse('{{  swap_data["pswpout"]|tojson }}'),
+            name: 'pswpout',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        }],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+</script>
 {% endblock %}

@@ -3,8 +3,8 @@
 {% for cpu in softnet_data %}
 <div class="container" id="{{ cpu }}" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("{{ cpu }}"));
-  var option = {
+    var myChart = echarts.init(document.getElementById("{{ cpu }}"));
+    var option = {
         title: {
             text: "softnet of CPU : ({{ cpu }})",
             subtext: "单位：个",
@@ -14,73 +14,88 @@
             data: ['total', 'dropd', 'squeezd', 'rx_rps', 'flw_lim']
         },
         tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
         },
         yAxis: {
             type: 'value',
-            },
+        },
         series: [
             {
-            data: JSON.parse('{{ softnet_data[cpu]["total"]|tojson }}'),
-            name: 'total',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ softnet_data[cpu]["total"]|tojson }}'),
+                name: 'total',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
+            },
             {
-            data: JSON.parse('{{ softnet_data[cpu]["dropd"]|tojson }}'),
-            name: 'dropd',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ softnet_data[cpu]["dropd"]|tojson }}'),
+                name: 'dropd',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
+            },
             {
-            data: JSON.parse('{{ softnet_data[cpu]["squeezd"]|tojson }}'),
-            name: 'squeezd',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ softnet_data[cpu]["squeezd"]|tojson }}'),
+                name: 'squeezd',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
+            },
             {
-            data: JSON.parse('{{ softnet_data[cpu]["rx_rps"]|tojson }}'),
-            name: 'rx_rps',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ softnet_data[cpu]["rx_rps"]|tojson }}'),
+                name: 'rx_rps',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
+            },
             {
-            data: JSON.parse('{{ softnet_data[cpu]["flw_lim"]|tojson }}'),
-            name: 'flw_lim',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ softnet_data[cpu]["flw_lim"]|tojson }}'),
+                name: 'flw_lim',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
-    ],
+            },
+        ],
         dataZoom: [{
             type: 'slider',
             start: 0,
@@ -92,6 +107,6 @@
         }],
     };
     myChart.setOption(option);
-  </script>
+</script>
 {% endfor %}
 {% endblock %}

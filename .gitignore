@@ -9,3 +9,4 @@ pyvenv.cfg
 /*.html
 bin/
 sa*.json
+*sa*.json

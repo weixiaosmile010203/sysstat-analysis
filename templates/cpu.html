@@ -42,10 +42,14 @@
             type: 'line',
             stack: '总量',
             areaStyle: {},
+            smooth: true,
+            showSymbol: false,
+            // large: true, // 针对大数据量优化
+            // progressive: 1000, // 渐进渲染
             label: {
                 normal: {
                     show: false,
-                    position: 'top'
+                    position: 'top',
                 }
             },
         },
@@ -53,8 +57,8 @@
         ],
         dataZoom: [{
             type: 'slider',
-            start: 0,
-            end: 100
+            start: 10,
+            end: 20
         }, {
             type: 'inside',
             start: 0,

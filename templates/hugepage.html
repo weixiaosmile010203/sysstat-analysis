@@ -1,202 +1,193 @@
 {% extends "index_template.html" %}
 {% block body %}
 <div class="container" id="huge-use" style="align-items: center; width: 1800px; height: 400px; "></div>
-    <script type="text/javascript">
+<script type="text/javascript">
         var myChart = echarts.init(document.getElementById('huge-use'));
         var option = {
-                    title: {
-                            text: "hugepage使用情况",
-                            subtext: "单位：KB",
-                            left: 'left',
-                    },
-                    legend: {
-                            data: ['hugfree', 'hugused'],
-                    },
-                    tooltip: {
+                title: {
+                        text: "hugepage使用情况",
+                        subtext: "单位：KB",
+                        left: 'left',
+                },
+                legend: {
+                        data: ['hugfree', 'hugused'],
+                },
+                tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                        type: 'cross',
+                                type: 'cross',
                                 label: {
-                                backgroundColor: '#6a7985'
+                                        backgroundColor: '#6a7985'
                                 }
                         }
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
+                },
+                xAxis: {
+                        type: 'category',
+                        data: JSON.parse('{{ timestamp_list|tojson }}')
+                },
+                yAxis: {
+                        type: 'value',
+                },
+                series: [{
+                        data: JSON.parse('{{ huge_data["hugfree"]|default(0)|tojson }}'),
+                        name: 'hugfree',
+                        type: 'line',
+                        smooth: true,
+                        showSymbol: false,
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
                                 }
                         }
-                    },
-                    xAxis: {
-                            type: 'category',
-                            data: JSON.parse('{{ timestamp_list|tojson }}')
-                    },
-                    yAxis: {
-                            type: 'value',
-                            },
-                    series: [{
-                            data: JSON.parse('{{ huge_data["hugfree"]|default(0)|tojson }}'),
-                            name: 'hugfree',
-                            type: 'line',
-                            label: {
-                                    normal: {
-                                            show: false,
-                                            position: 'top'
-                                    }
-                            }
-                    },
-                    {
-                            data: JSON.parse('{{ huge_data["hugused"]|default(0)|tojson }}'),
-                            name: 'hugused',
-                            type: 'line',
-                            label: {
-                                    normal: {
-                                            show: false,
-                                            position: 'top'
-                                    }
-                            }
-                    }],
-                    dataZoom: [{
-                            type: 'slider',
-                            start: 0,
-                            end: 100
-                    }, {
-                            type: 'inside',
-                            start: 0,
-                            end: 100
-                    }],
-            };
-            myChart.setOption(option);
-        </script>
+                },
+                {
+                        data: JSON.parse('{{ huge_data["hugused"]|default(0)|tojson }}'),
+                        name: 'hugused',
+                        type: 'line',
+                        smooth: true,
+                        showSymbol: false,
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                }],
+                dataZoom: [{
+                        type: 'slider',
+                        start: 0,
+                        end: 100
+                }, {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                }],
+        };
+        myChart.setOption(option);
+</script>
 
 <div class="container" id="hugused-percent" style="align-items: center; width: 1800px; height: 400px; "></div>
-    <script type="text/javascript">
-        var myChart = echarts.init(document.getElementById('hugused-percent'));
-        var option = {
-                    title: {
-                            text: "hugepage使用率",
-                            subtext: "单位：%",
-                            left: 'left',
-                    },
-                    legend: {
-                            data: ['hugused-percent'],
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                    },
-                    xAxis: {
-                            type: 'category',
-                            data: JSON.parse('{{ timestamp_list|tojson }}')
-                    },
-                    yAxis: {
-                            type: 'value',
-                            max: 100,
-                            },
-                    series: [{
-                            data: JSON.parse('{{ huge_data["hugused-percent"]|default(0)|tojson }}'),
-                            name: 'hugused-percent',
-                            type: 'line',
-                            areaStyle: {},
-                            label: {
-                                    normal: {
-                                            show: false,
-                                            position: 'top'
-                                    }
-                            }
-                    },],
-                    dataZoom: [{
-                            type: 'slider',
-                            start: 0,
-                            end: 100
-                    }, {
-                            type: 'inside',
-                            start: 0,
-                            end: 100
-                    }],
-            };
-            myChart.setOption(option);
-        </script>
+<script type="text/javascript"></script>
+var myChart = echarts.init(document.getElementById('hugused-percent'));
+var option = {
+title: {
+text: "hugepage使用率",
+subtext: "单位：%",
+left: 'left',
+},
+legend: {
+data: ['hugused-percent'],
+},
+tooltip: {
+trigger: 'axis',
+axisPointer: {
+type: 'cross',
+label: {
+backgroundColor: '#6a7985'
+}
+}
+},
+xAxis: {
+type: 'category',
+data: JSON.parse('{{ timestamp_list|tojson }}')
+},
+yAxis: {
+type: 'value',
+max: 100,
+},
+series: [{
+data: JSON.parse('{{ huge_data["hugused-percent"]|default(0)|tojson }}'),
+name: 'hugused-percent',
+type: 'line',
+smooth: true,
+showSymbol: false,
+areaStyle: {},
+label: {
+normal: {
+show: false,
+position: 'top'
+}
+}
+}],
+dataZoom: [{
+type: 'slider',
+start: 0,
+end: 100
+}, {
+type: 'inside',
+start: 0,
+end: 100
+}],
+};
+myChart.setOption(option);
+</script>
 
 <div class="container" id="hugrsvd" style="align-items: center; width: 1800px; height: 400px; "></div>
-    <script type="text/javascript">
+<script type="text/javascript">
         var myChart = echarts.init(document.getElementById('hugrsvd'));
         var option = {
-                    title: {
-                            text: "hugepage保留情况",
-                            subtext: "单位：KB",
-                            left: 'left',
-                    },
-                    legend: {
-                            data: ['hugrsvd', 'hugsurp'],
-                    },
-                    tooltip: {
+                title: {
+                        text: "hugepage保留情况",
+                        subtext: "单位：KB",
+                        left: 'left',
+                },
+                legend: {
+                        data: ['hugrsvd', 'hugsurp'],
+                },
+                tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                        type: 'cross',
+                                type: 'cross',
                                 label: {
-                                backgroundColor: '#6a7985'
+                                        backgroundColor: '#6a7985'
                                 }
                         }
-                    },
-                    xAxis: {
-                            type: 'category',
-                            data: JSON.parse('{{ timestamp_list|tojson }}')
-                    },
-                    yAxis: {
-                            type: 'value',
-                            },
-                    series: [
+                },
+                xAxis: {
+                        type: 'category',
+                        data: JSON.parse('{{ timestamp_list|tojson }}')
+                },
+                yAxis: {
+                        type: 'value',
+                },
+                series: [
                         {
-                            data: JSON.parse('{{ huge_data["hugrsvd"]|default(0)|tojson }}'),
-                            name: 'hugrsvd',
-                            type: 'line',
-                            label: {
-                                    normal: {
-                                            show: false,
-                                            position: 'top'
-                                    }
-                            }
-                    },
-                    {
-                            data: JSON.parse('{{ huge_data["hugsurp"]|default(0)|tojson }}'),
-                            name: 'hugsurp',
-                            type: 'line',
-                            label: {
-                                    normal: {
-                                            show: false,
-                                            position: 'top'
-                                    }
-                            }
-                    },
-                ],
-                    dataZoom: [{
-                            type: 'slider',
-                            start: 0,
-                            end: 100
-                    }, {
-                            type: 'inside',
-                            start: 0,
-                            end: 100
-                    }],
-            };
-            myChart.setOption(option);
-        </script>
+                                data: JSON.parse('{{ huge_data["hugrsvd"]|default(0)|tojson }}'),
+                                name: 'hugrsvd',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top'
+                                        }
+                                }
+                        },
+                        {
+                                data: JSON.parse('{{ huge_data["hugsurp"]|default(0)|tojson }}'),
+                                name: 'hugsurp',
+                                type: 'line',
+                                smooth: true,
+                                showSymbol: false,
+                                label: {
+                                        normal: {
+                                                show: false,
+                                                position: 'top'
+                                        }
+                                }
+                        }],
+                dataZoom: [{
+                        type: 'slider',
+                        start: 0,
+                        end: 100
+                }, {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                }],
+        };
+        myChart.setOption(option);
+</script>
 {% endblock %}

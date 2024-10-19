@@ -15,3 +15,7 @@
 /kernel_page = kernel数据
 /queue_page = queue数据
 /serial_page = serial数据
+
+
+# 转换命令
+ sadf  -C sa11 -j -t -- -A  > 151_sa11.json

@@ -2,8 +2,8 @@
 {% block body %}
 <div class="container" id="mem_user_percent" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('mem_user_percent'));
-    var option = {
+        var myChart = echarts.init(document.getElementById('mem_user_percent'));
+        var option = {
                 title: {
                         text: "内存使用率",
                         subtext: "单位：%",
@@ -28,16 +28,18 @@
                 yAxis: {
                         type: 'value',
                         max: 100,
-                        },
+                },
                 series: [{
                         data: JSON.parse("{{ mem_data['memused-percent']|tojson }}"),
                         name: 'memused-percent',
                         type: 'line',
                         areaStyle: {},
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
-                                show: false,
-                                position: 'top',
+                                        show: false,
+                                        position: 'top',
                                 },
                         },
                 }],
@@ -55,15 +57,15 @@
 </script>
 <div class="container" id="mem_use" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('mem_use'));
-    var option = {
+        var myChart = echarts.init(document.getElementById('mem_use'));
+        var option = {
                 title: {
                         text: "内存使用量",
                         subtext: "单位：Kb",
                         left: 'left',
                 },
                 legend: {
-                        data: ['memused','avail','memfree'],
+                        data: ['memused', 'avail', 'memfree'],
                 },
                 tooltip: {
                         trigger: 'axis',
@@ -80,11 +82,13 @@
                 },
                 yAxis: {
                         type: 'value',
-                        },
+                },
                 series: [{
                         data: JSON.parse("{{ mem_data['memused']|tojson }}"),
                         name: 'memused',
                         type: 'line',
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
                                         show: false,
@@ -96,6 +100,8 @@
                         data: JSON.parse("{{ mem_data['avail']|tojson }}"),
                         name: 'avail',
                         type: 'line',
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
                                         show: false,
@@ -107,6 +113,8 @@
                         data: JSON.parse("{{ mem_data['memfree']|tojson }}"),
                         name: 'memfree',
                         type: 'line',
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
                                         show: false,
@@ -129,15 +137,15 @@
 
 <div class="container" id="mem_cache" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('mem_cache'));
-    var option = {
+        var myChart = echarts.init(document.getElementById('mem_cache'));
+        var option = {
                 title: {
                         text: "缓存占有量",
                         subtext: "单位：Kb",
                         left: 'left',
                 },
                 legend: {
-                        data: ['memused','buffers','cached'],
+                        data: ['memused', 'buffers', 'cached'],
                 },
                 tooltip: {
                         trigger: 'axis',
@@ -154,11 +162,13 @@
                 },
                 yAxis: {
                         type: 'value',
-                        },
+                },
                 series: [{
                         data: JSON.parse("{{ mem_data['memused']|tojson }}"),
                         name: 'memused',
                         type: 'line',
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
                                         show: false,
@@ -170,6 +180,8 @@
                         data: JSON.parse("{{ mem_data['buffers']|tojson }}"),
                         name: 'buffers',
                         type: 'line',
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
                                         show: false,
@@ -181,6 +193,8 @@
                         data: JSON.parse("{{ mem_data['cached']|tojson }}"),
                         name: 'cached',
                         type: 'line',
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
                                         show: false,
@@ -203,8 +217,8 @@
 
 <div class="container" id="swpused-percent" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('swpused-percent'));
-    var option = {
+        var myChart = echarts.init(document.getElementById('swpused-percent'));
+        var option = {
                 title: {
                         text: "swap使用率",
                         subtext: "单位：%",
@@ -229,12 +243,14 @@
                 yAxis: {
                         type: 'value',
                         max: 100,
-                        },
+                },
                 series: [{
                         data: JSON.parse("{{ mem_data['swpused-percent']|tojson }}"),
                         name: 'swpused-percent',
                         type: 'line',
                         areaStyle: {},
+                        smooth: true,
+                        showSymbol: false,
                         label: {
                                 normal: {
                                         show: false,
@@ -259,15 +275,15 @@
 <script type="text/javascript">
         var myChart = echarts.init(document.getElementById('swpused'));
         var option = {
-                    title: {
-                            text: "swap占有量",
-                            subtext: "单位：Kb",
-                            left: 'left',
-                    },
-                    legend: {
-                            data: ['swpused','swpfree'],
-                    },
-                    tooltip: {
+                title: {
+                        text: "swap占有量",
+                        subtext: "单位：Kb",
+                        left: 'left',
+                },
+                legend: {
+                        data: ['swpused', 'swpfree'],
+                },
+                tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                                 type: 'cross',
@@ -276,45 +292,49 @@
                                 }
                         }
                 },
-                    xAxis: {
-                            type: 'category',
-                            data: JSON.parse('{{ timestamp_list|tojson }}')
-                    },
-                    yAxis: {
-                            type: 'value',
-                            },
-                    series: [{
-                            data: JSON.parse("{{ mem_data['swpused']|tojson }}"),
-                            name: 'swpused',
-                            type: 'line',
-                            label: {
-                                    normal: {
-                                            show: false,
-                                            position: 'top'
-                                    }
-                            }
-                    },
-                    {
-                            data: JSON.parse('{{ mem_data["swpfree"]|tojson }}'),
-                            name: 'swpfree',
-                            type: 'line',
-                            label: {
-                                    normal: {
-                                            show: false,
-                                            position: 'top'
-                                    }
-                            }
-                    }],
-                    dataZoom: [{
-                            type: 'slider',
-                            start: 0,
-                            end: 100
-                    }, {
-                            type: 'inside',
-                            start: 0,
-                            end: 100
-                    }],
-            };
-            myChart.setOption(option);
-    </script>
+                xAxis: {
+                        type: 'category',
+                        data: JSON.parse('{{ timestamp_list|tojson }}')
+                },
+                yAxis: {
+                        type: 'value',
+                },
+                series: [{
+                        data: JSON.parse("{{ mem_data['swpused']|tojson }}"),
+                        name: 'swpused',
+                        type: 'line',
+                        smooth: true,
+                        showSymbol: false,
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                },
+                {
+                        data: JSON.parse('{{ mem_data["swpfree"]|tojson }}'),
+                        name: 'swpfree',
+                        type: 'line',
+                        smooth: true,
+                        showSymbol: false,
+                        label: {
+                                normal: {
+                                        show: false,
+                                        position: 'top'
+                                }
+                        }
+                }],
+                dataZoom: [{
+                        type: 'slider',
+                        start: 0,
+                        end: 100
+                }, {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                }],
+        };
+        myChart.setOption(option);
+</script>
 {% endblock %}

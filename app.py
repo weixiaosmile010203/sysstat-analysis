@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 
 def import_data():
-    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), '151_sa11.json'))
+    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), '151_sa17.json'))
     return data
 
 @app.route('/')

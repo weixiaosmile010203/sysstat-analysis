@@ -2,75 +2,87 @@
 {% block body %}
 <div class="container" id="socket" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("socket"));
-  var option = {
+    var myChart = echarts.init(document.getElementById("socket"));
+    var option = {
         title: {
             text: "Network Socket",
             subtext: "单位：个",
             left: 'left',
         },
         legend: {
-            data: ['totsck', 'tcpsck', 'udpsck','rawsck'],
+            data: ['totsck', 'tcpsck', 'udpsck', 'rawsck'],
         },
         tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
         },
         yAxis: {
             type: 'value',
-            },
+        },
         series: [
             {
-            data: JSON.parse('{{ socket_data["totsck"]|tojson }}'),
-            name: 'totsck',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ socket_data["totsck"]|tojson }}'),
+                name: 'totsck',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
+            },
             {
-            data: JSON.parse('{{ socket_data["tcpsck"]|tojson }}'),
-            name: 'tcpsck',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ socket_data["tcpsck"]|tojson }}'),
+                name: 'tcpsck',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
+            },
             {
-            data: JSON.parse('{{ socket_data["udpsck"]|tojson }}'),
-            name: 'udpsck',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ socket_data["udpsck"]|tojson }}'),
+                name: 'udpsck',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
+            },
             {
-            data: JSON.parse('{{ socket_data["rawsck"]|tojson }}'),
-            name: 'rawsck',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ socket_data["rawsck"]|tojson }}'),
+                name: 'rawsck',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
-            
-    ],
+            },
+
+        ],
         dataZoom: [{
             type: 'slider',
             start: 0,
@@ -82,12 +94,12 @@
         }],
     };
     myChart.setOption(option);
-  </script>
+</script>
 
 <div class="container" id="ip-frag" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("ip-frag"));
-  var option = {
+    var myChart = echarts.init(document.getElementById("ip-frag"));
+    var option = {
         title: {
             text: "IP Fragments",
             subtext: "单位：次",
@@ -97,33 +109,36 @@
             data: ['ip-frag'],
         },
         tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
         },
         yAxis: {
             type: 'value',
-            },
+        },
         series: [
             {
-            data: JSON.parse('{{ socket_data["ip-frag"]|tojson }}'),
-            name: 'ip-frag',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ socket_data["ip-frag"]|tojson }}'),
+                name: 'ip-frag',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
-    ],
+            },
+        ],
         dataZoom: [{
             type: 'slider',
             start: 0,
@@ -135,12 +150,12 @@
         }],
     };
     myChart.setOption(option);
-  </script>
+</script>
 
 <div class="container" id="tcp-tw" style="align-items: center; width: 1800px; height: 400px; "></div>
 <script type="text/javascript">
-  var myChart = echarts.init(document.getElementById("tcp-tw"));
-  var option = {
+    var myChart = echarts.init(document.getElementById("tcp-tw"));
+    var option = {
         title: {
             text: "TCP Time Wait",
             subtext: "单位：次",
@@ -150,33 +165,36 @@
             data: ['tcp-tw'],
         },
         tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
         xAxis: {
             type: 'category',
             data: JSON.parse('{{ timestamp_list|tojson }}')
         },
         yAxis: {
             type: 'value',
-            },
+        },
         series: [
             {
-            data: JSON.parse('{{ socket_data["tcp-tw"]|tojson }}'),
-            name: 'tcp-tw',
-            type: 'line',
-            label: {
-                normal: {
-                    show: false,
-                    position: 'top',
+                data: JSON.parse('{{ socket_data["tcp-tw"]|tojson }}'),
+                name: 'tcp-tw',
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'top',
+                    }
                 }
-            }},
-    ],
+            },
+        ],
         dataZoom: [{
             type: 'slider',
             start: 0,
@@ -188,6 +206,6 @@
         }],
     };
     myChart.setOption(option);
-  </script>
+</script>
 
 {% endblock %}

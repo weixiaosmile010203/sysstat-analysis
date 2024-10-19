@@ -1,319 +1,339 @@
 {% extends "index_template.html" %}
 {% block body %}
 <div class="container" id="page_fault" style="align-items: center; width: 1800px; height: 400px; "></div>
-    <script type="text/javascript">
+<script type="text/javascript">
     var myChart = echarts.init(document.getElementById('page_fault'));
     var option = {
-          title: {
-              text: "缺页中断和主缺页中断",
-              subtext: "单位：次",
-              left: 'left',
-          },
-          legend: {
-              data: ['fault', 'majflt'],
-          },
-          tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ paging_data["fault"]|default(0)|tojson }}'),
-              name: 'fault',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{  paging_data["majflt"]|default(0)|tojson }}'),
-              name: 'majflt',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          }],
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+        title: {
+            text: "缺页中断和主缺页中断",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['fault', 'majflt'],
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [{
+            data: JSON.parse('{{ paging_data["fault"]|default(0)|tojson }}'),
+            name: 'fault',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },
+        {
+            data: JSON.parse('{{  paging_data["majflt"]|default(0)|tojson }}'),
+            name: 'majflt',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        }],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+</script>
 
 <div class="container" id="page_io" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
+<script type="text/javascript">
     var myChart = echarts.init(document.getElementById('page_io'));
     var option = {
-          title: {
-              text: "读写和交换活动",
-              subtext: "单位：次",
-              left: 'left',
-          },
-          legend: {
-              data: ['pgpgin', 'pgpgout','pgsteal'],
-          },
-          tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ paging_data["pgpgin"]|default(0)|tojson }}'),
-              name: 'pgpgin',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{  paging_data["pgpgout"]|default(0)|tojson }}'),
-              name: 'pgpgout',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{  paging_data["pgsteal"]|default(0)|tojson }}'),
-              name: 'pgsteal',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          }
-        ],  
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+        title: {
+            text: "读写和交换活动",
+            subtext: "单位：次",
+            left: 'left',
+        },
+        legend: {
+            data: ['pgpgin', 'pgpgout', 'pgsteal'],
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [{
+            data: JSON.parse('{{ paging_data["pgpgin"]|default(0)|tojson }}'),
+            name: 'pgpgin',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },
+        {
+            data: JSON.parse('{{  paging_data["pgpgout"]|default(0)|tojson }}'),
+            name: 'pgpgout',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },
+        {
+            data: JSON.parse('{{  paging_data["pgsteal"]|default(0)|tojson }}'),
+            name: 'pgsteal',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        }
+        ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+</script>
 
 <div class="container" id="page_free" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
+<script type="text/javascript">
     var myChart = echarts.init(document.getElementById('page_free'));
     var option = {
-          title: {
-              text: "空闲页面和扫描页面",
-              subtext: "单位：页面/秒",
-              left: 'left',
-          },
-          legend: {
-              data: ['pgfree', 'pgscank','pgscand'],
-          },
-          tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ paging_data["pgfree"]|default(0)|tojson }}'),
-              name: 'pgfree',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{  paging_data["pgscank"]|default(0)|tojson }}'),
-              name: 'pgscank',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },
-          {
-              data: JSON.parse('{{  paging_data["pgscand"]|default(0)|tojson }}'),
-              name: 'pgscand',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          }
-        ],  
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+        title: {
+            text: "空闲页面和扫描页面",
+            subtext: "单位：页面/秒",
+            left: 'left',
+        },
+        legend: {
+            data: ['pgfree', 'pgscank', 'pgscand'],
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [{
+            data: JSON.parse('{{ paging_data["pgfree"]|default(0)|tojson }}'),
+            name: 'pgfree',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },
+        {
+            data: JSON.parse('{{  paging_data["pgscank"]|default(0)|tojson }}'),
+            name: 'pgscank',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },
+        {
+            data: JSON.parse('{{  paging_data["pgscand"]|default(0)|tojson }}'),
+            name: 'pgscand',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        }
+        ],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+</script>
 
 <div class="container" id="page_steal" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
+<script type="text/javascript">
     var myChart = echarts.init(document.getElementById('page_steal'));
     var option = {
-          title: {
-              text: "页面偷取",
-              subtext: "单位：页面/秒",
-              left: 'left',
-          },
-          legend: {
-              data: ['pgsteal',],
-          },
-          tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ paging_data["pgsteal"]|default(0)|tojson }}'),
-              name: 'pgsteal',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },],  
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+        title: {
+            text: "页面偷取",
+            subtext: "单位：页面/秒",
+            left: 'left',
+        },
+        legend: {
+            data: ['pgsteal',],
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [{
+            data: JSON.parse('{{ paging_data["pgsteal"]|default(0)|tojson }}'),
+            name: 'pgsteal',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+</script>
 
 <div class="container" id="vmeff_percent" style="align-items: center; width: 1800px; height: 400px; "></div>
-  <script type="text/javascript">
+<script type="text/javascript">
     var myChart = echarts.init(document.getElementById('vmeff_percent'));
     var option = {
-          title: {
-              text: "虚拟内存效率",
-              subtext: "单位：%",
-              left: 'left',
-          },
-          legend: {
-              data: ['vmeff-percent'],
-          },
-          tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                        type: 'cross',
-                                label: {
-                                backgroundColor: '#6a7985'
-                                }
-                        }
-                },
-          xAxis: {
-              type: 'category',
-              data: JSON.parse('{{ timestamp_list|tojson }}')
-          },
-          yAxis: {
-              type: 'value',
-              },
-          series: [{
-              data: JSON.parse('{{ paging_data["vmeff-percent"]|default(0)|tojson }}'),
-              name: 'vmeff-percent',
-              type: 'line',
-              label: {
-                  normal: {
-                      show: false,
-                      position: 'top'
-                  }
-              }
-          },],  
-          dataZoom: [{
-              type: 'slider',
-              start: 0,
-              end: 100
-          }, {
-              type: 'inside',
-              start: 0,
-              end: 100
-          }],
-      };
-      myChart.setOption(option);
-    </script>
+        title: {
+            text: "虚拟内存效率",
+            subtext: "单位：%",
+            left: 'left',
+        },
+        legend: {
+            data: ['vmeff-percent'],
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse('{{ timestamp_list|tojson }}')
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [{
+            data: JSON.parse('{{ paging_data["vmeff-percent"]|default(0)|tojson }}'),
+            name: 'vmeff-percent',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'top'
+                }
+            }
+        },],
+        dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 100
+        }, {
+            type: 'inside',
+            start: 0,
+            end: 100
+        }],
+    };
+    myChart.setOption(option);
+</script>
 {% endblock %}
