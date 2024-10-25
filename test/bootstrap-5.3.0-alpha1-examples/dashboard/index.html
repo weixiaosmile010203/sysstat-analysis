@@ -88,16 +88,31 @@
           <div class="position-sticky pt-3 sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-current="page" href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home align-text-bottom" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                   首页
                 </a>
+                <div class="collapse" id="home-collapse" >
+                  <ul class="list-group" style="padding-left: 35px;">
+                    <li class="list-group-item list-group-item-action list-group-item-light">1</li>
+                    <li class="list-group-item list-group-item-action list-group-item-light">2</li>
+                    <li class="list-group-item list-group-item-action list-group-item-light">3</li>
+                  </ul>
+                </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-controls="flush-collapseOne" href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file align-text-bottom" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                   CPU
                 </a>
+                  <div class="" id="flush-collapseOne" >
+                    <ul>
+                      <li>all</li>
+                      <li>cpu0</li>
+                      <li>cpu1</li>
+                      <li>cpu2</li>
+                    </ul>
+                  </div>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">

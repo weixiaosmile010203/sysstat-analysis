@@ -197,5 +197,5 @@ class SysStatAnalyzer:
 
 
 if __name__ == '__main__':
-    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sa01.json'))
+    data = SysStatAnalyzer(os.path.join(os.path.dirname(__file__), 'sar24.json'))
     data._get_io_data()
